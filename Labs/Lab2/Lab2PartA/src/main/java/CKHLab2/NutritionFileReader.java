@@ -26,7 +26,7 @@ public class NutritionFileReader {
         String filePath = in.next();
         File file = new File(filePath);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        List<Food> foods = new ArrayList<Food>();
+        List<Food> foods = new ArrayList<>();
 
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -100,9 +100,11 @@ public class NutritionFileReader {
             } else if (selection.equals("1")) {
                 value = f.getCholesterol();
             }
-            String nameStr = String.format("%1$-50s", f.getName());
+            String nameStr = f.getName();
+            String[] nameStrSplit = nameStr.split(",");
+
             String valStr = String.format("%1$-20s", value);
-            System.out.println("Name: " + nameStr + "Value: " + valStr);
+            System.out.println("Name: " + String.format("%1$-50s",nameStrSplit[0]) + "Value: " + valStr);
         }
 
 
