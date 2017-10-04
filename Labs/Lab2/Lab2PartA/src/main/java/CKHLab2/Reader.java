@@ -10,6 +10,7 @@ public class Reader {
     public void readFile() {
         Scanner in = new Scanner(System.in);
         System.out.println("Please enter the file path and name:");
+        // /home/inet2005/Documents/data.txt
         String filePath = in.next();
 
         try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
