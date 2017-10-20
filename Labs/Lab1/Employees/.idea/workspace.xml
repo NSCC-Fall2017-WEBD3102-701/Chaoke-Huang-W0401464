@@ -2,10 +2,53 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a80fc188-f579-456a-92dd-af2ca029ca7a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../my-app/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../my-app/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../my-app/target/surefire-reports/TEST-com.mycompany.app.AppTest.xml" afterPath="$PROJECT_DIR$/../my-app/target/surefire-reports/TEST-com.mycompany.app.AppTest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../my-app/target/surefire-reports/com.mycompany.app.AppTest.txt" afterPath="$PROJECT_DIR$/../my-app/target/surefire-reports/com.mycompany.app.AppTest.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/compiler.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/encodings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__javax_annotation_javax_annotation_api_1_2.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__javax_el_javax_el_api_3_0_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__javax_enterprise_cdi_api_2_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__javax_inject_javax_inject_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__javax_interceptor_javax_interceptor_api_1_2.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__javax_json_bind_javax_json_bind_api_1_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__javax_json_javax_json_api_1_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__javax_validation_validation_api_1_1_0_Final.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__javax_ws_rs_javax_ws_rs_api_2_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__junit_junit_4_9.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_eclipse_yasson_1_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_grizzly_grizzly_framework_2_4_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_grizzly_grizzly_http_2_4_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_grizzly_grizzly_http_server_2_4_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_hk2_external_aopalliance_repackaged_2_5_0_b42.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_hk2_external_javax_inject_2_5_0_b42.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_hk2_hk2_api_2_5_0_b42.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_hk2_hk2_locator_2_5_0_b42.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_hk2_hk2_utils_2_5_0_b42.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_hk2_osgi_resource_locator_1_0_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_javax_json_1_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_jersey_containers_jersey_container_grizzly2_http_2_26.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_jersey_core_jersey_client_2_26.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_jersey_core_jersey_common_2_26.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_jersey_core_jersey_server_2_26.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_jersey_inject_jersey_hk2_2_26.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_jersey_media_jersey_media_jaxb_2_26.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_glassfish_jersey_media_jersey_media_json_binding_2_26.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/libraries/Maven__org_javassist_javassist_3_22_0_CR2.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/InvoiceBackEnd.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/pom.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/src/main/java/com/webd3102/InvoiceDAO.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceBackEnd/src/main/java/com/webd3102/InvoiceService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceFrontEnd/.idea/libraries/Maven__com_google_code_gson_gson_2_8_2.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceFrontEnd/.idea/libraries/Maven__com_squareup_okhttp3_okhttp_3_9_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceFrontEnd/.idea/libraries/Maven__com_squareup_okio_okio_1_13_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../Assignment1/InvoiceFrontEnd/src/main/java/com/webd3102/InvoiceBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Lab2/JSONServer/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../Lab2/JSONServer/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Lab3/HelloWorldJsp/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../Lab3/HelloWorldJsp/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Lab3/HelloWorldJsp/target/HelloWorldJsp/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/../../Lab3/HelloWorldJsp/target/HelloWorldJsp/META-INF/MANIFEST.MF" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Lab3/IntelliJSP/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../Lab3/IntelliJSP/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -41,8 +84,8 @@
       <file leaf-file-name="Employee.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/nscc/webd3102/Employee.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="756">
-              <caret line="54" column="30" lean-forward="false" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
+            <state relative-caret-position="126">
+              <caret line="7" column="47" lean-forward="false" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -132,10 +175,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -194,6 +233,10 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -431,6 +474,7 @@
       <workItem from="1506084880961" duration="410000" />
       <workItem from="1506687499159" duration="201000" />
       <workItem from="1506961383573" duration="35000" />
+      <workItem from="1508370591947" duration="7000" />
     </task>
     <task id="LOCAL-00001" summary="Aklmost done">
       <created>1505937342638</created>
@@ -497,10 +541,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18274000" />
+    <option name="totallyTimeSpent" value="18281000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="28" width="1922" height="1139" extended-state="6" />
+    <frame x="-1" y="28" width="1922" height="1139" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -549,6 +593,30 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/nscc/webd3102/AppTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="49" column="40" lean-forward="false" selection-start-line="49" selection-start-column="40" selection-end-line="49" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nscc/webd3102/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="22" column="22" lean-forward="false" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nscc/webd3102/Employee.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="756">
+          <caret line="54" column="30" lean-forward="false" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/nscc/webd3102/AppTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="738">
@@ -790,8 +858,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/nscc/webd3102/Employee.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="54" column="30" lean-forward="false" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
+        <state relative-caret-position="126">
+          <caret line="7" column="47" lean-forward="false" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
           <folding />
         </state>
       </provider>
