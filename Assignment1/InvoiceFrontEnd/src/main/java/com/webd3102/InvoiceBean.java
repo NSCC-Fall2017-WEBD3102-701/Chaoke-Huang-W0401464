@@ -11,6 +11,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,9 +23,10 @@ public class InvoiceBean {
     List<Invoice> list = new ArrayList<Invoice>();
     Invoice editableInvoice = new Invoice();
     String invoiceCashierInput;
-    List<String> invoiceItemsInput;
+    List<String> invoiceItemsInput = new ArrayList<>();
     Date invoiceDueDateInput;
     Date invoiceOrderDateInput;
+    DateFormat myDate = new SimpleDateFormat("MM/dd/yyyy");
     private OkHttpClient client = new OkHttpClient();
 
     public Invoice getEditableInvoice() {
@@ -106,11 +108,19 @@ public class InvoiceBean {
         PostRequest postDel = new PostRequest();
         postDel.post("http://localhost:8080/myapp/invoices/delete" + invoiceNo, "");
     }
+    public void goAddinvoicePage() throws IOException {
+        invoiceDueDateInput = null;
+        invoiceOrderDateInput = null;
+        invoiceCashierInput="";
+        invoiceItemsInput.clear();
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.redirect("http://localhost:8000/addInvoice.xhtml");
+    }
 
     public void addInvoice() throws IOException {
         PostRequest postAdd = new PostRequest();
         String invoiceNoInput = getNewID();
-        DateFormat myDate = new SimpleDateFormat("MM/dd/yyyy");
+
         String invoiceOrderDate = myDate.format(invoiceOrderDateInput);
         String invoiceDueDate = myDate.format(invoiceDueDateInput);
         Invoice invoice = new Invoice(invoiceNoInput, invoiceCashierInput, invoiceItemsInput, invoiceOrderDate, invoiceDueDate);
@@ -123,8 +133,6 @@ public class InvoiceBean {
 
     public void updateInvoiceRequest() throws IOException {
         PostRequest postAdd = new PostRequest();
-
-        DateFormat myDate = new SimpleDateFormat("MM/dd/yyyy");
         String invoiceOrderDate = myDate.format(invoiceOrderDateInput);
         String invoiceDueDate = myDate.format(invoiceDueDateInput);
         editableInvoice.orderDate = myDate.format(invoiceOrderDateInput);
@@ -154,10 +162,13 @@ public class InvoiceBean {
 
     }
 
-    public void editInvoice(Invoice invoice) throws IOException {
+    public void editInvoice(Invoice invoice) throws IOException, ParseException {
 
         editableInvoice = invoice;
-        editableInvoice.items.clear();
+        //editableInvoice.items.clear();
+
+        invoiceDueDateInput = myDate.parse(invoice.dueDate);
+        invoiceOrderDateInput = myDate.parse(invoice.orderDate);
 
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         context.redirect("http://localhost:8000/updateInvoice.xhtml");
