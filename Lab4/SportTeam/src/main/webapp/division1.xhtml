@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Team Player</title>
+    <h:outputStylesheet name="css/main.css"/>
+</h:head>
+
+<h:body>
+    <h2>Team Player</h2>
+    <h4>Division1</h4>
+        <h:panelGrid columns="2">
+            Name:
+            <h:outputText value="#{player.name}"
+                         id="player_name" />
+
+            Age:
+            <h:outputText value="#{player.age}"
+                          id="player_age" />
+            Fees Paid:
+            <h:outputText value="#{player.feesPaid}"
+                          id="player_feesPaid" />
+            Zip Code:
+            <h:outputText value="#{player.zip}"
+                          id="player_zip" />
+            Date Of Birth:
+            <h:outputText value="#{player.dob}"
+                          id="player_dob">
+                <f:convertDateTime pattern="dd-MMM-yy" />
+            </h:outputText>
+            Height(cm):
+            <h:outputText value="#{player.height}"
+                          id="player_height">
+                <f:convertNumber maxFractionDigits="1" />
+            </h:outputText>
+            SIN:
+            <h:outputText value="#{player.sin}"
+                          id="player_sin">
+                <f:converter converterId="com.webd3102.SportTeam.SinConverter" />
+
+            </h:outputText>
+
+
+
+            <a href="index.xhtml">Back To Index</a>
+        </h:panelGrid>
+</h:body>
+
+</html>
