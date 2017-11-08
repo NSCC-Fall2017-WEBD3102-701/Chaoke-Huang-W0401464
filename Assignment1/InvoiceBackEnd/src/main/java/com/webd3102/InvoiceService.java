@@ -7,17 +7,13 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-
 @Path("invoices")
 public class InvoiceService {
-
     @POST
     @Path("/update")
     @Consumes({MediaType.APPLICATION_JSON})
     public Invoice updateInvoice_JSON(String invoiceStr) {
-
         Gson gson = new Gson();
-
         return InvoiceDAO.updateInvoice(gson.fromJson(invoiceStr, Invoice.class));
     }
 
@@ -37,14 +33,23 @@ public class InvoiceService {
     }
 
 
-    @POST
+    @GET
+    @Path("/lastID")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getLastID() {
+
+        String lastID = InvoiceDAO.getLastID();
+        return lastID;
+    }
+
+    @DELETE
     @Path("/delete{invoiceNo}")
     @Produces({MediaType.APPLICATION_JSON})
     public void deleteInvoice(@PathParam("invoiceNo") String invoiceNo) {
         InvoiceDAO.deleteInvoice(invoiceNo);
     }
 
-    @POST
+    @PUT
     @Path("/addInvoice")
     @Consumes({MediaType.APPLICATION_JSON})
     public Invoice addInvoice(String invoiceStr) {
