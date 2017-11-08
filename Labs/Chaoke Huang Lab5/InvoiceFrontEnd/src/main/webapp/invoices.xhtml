@@ -1,0 +1,27 @@
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="myHead">
+        <h:outputStylesheet name="css/table-style.css"/>
+        <h:outputScript name="js/myJS.js" target="head"/>
+    </ui:define>
+
+    <ui:define name="heading">
+        Invoices
+    </ui:define>
+
+    <ui:define name="secondPart">
+        <h3><h:outputLabel value="#{flash['feedback']}"/></h3>
+        <h:form>
+            <h:commandButton image="resources/images/Add.jpg" value="Add Invoice"
+                             action="#{invoiceBean.goAddinvoicePage()}"/>
+        </h:form>
+    </ui:define>
+
+    <ui:param name="invoices" value="#{invoiceBean.invoiceList}" />
+
+    <ui:define name="invoiceTable">
+    </ui:define>
+</ui:composition>

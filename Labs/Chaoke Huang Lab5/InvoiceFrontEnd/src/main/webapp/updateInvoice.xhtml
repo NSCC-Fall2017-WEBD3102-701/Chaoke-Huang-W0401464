@@ -1,0 +1,24 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        template="formTemplate.xhtml">
+
+    <ui:define name="titleContent">
+        <title>Update Invoice No: #{invoiceBean.invoiceModel.invoiceNo}</title>
+    </ui:define>
+
+    <ui:define name="headingContent">
+        <h:outputText value="Update Invoice No: #{invoiceBean.invoiceModel.invoiceNo}" styleClass="headers-region"/>
+    </ui:define>
+
+    <ui:define name="buttonContent">
+        <h:commandButton image="resources/images/Update.jpg" action="#{invoiceBean.updateInvoiceRequest()}" value="Update Invoice"/>
+    </ui:define>
+
+    <ui:param name="idParam" value="#{invoiceBean.invoiceModel.invoiceNo}" />
+    <ui:param name="cashierParam" value="#{invoiceBean.invoiceModel.cashier}" />
+    <ui:param name="orderParam" value="#{invoiceBean.orderDate}" />
+    <ui:param name="dueParam" value="#{invoiceBean.dueDate}" />
+    <ui:param name="itemsParam" value="#{invoiceBean.invoiceModel.items}" />
+</ui:composition>

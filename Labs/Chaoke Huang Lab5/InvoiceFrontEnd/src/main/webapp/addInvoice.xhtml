@@ -1,0 +1,25 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        template="formTemplate.xhtml">
+
+    <ui:define name="titleContent">
+        <title>Add Invoice</title>
+    </ui:define>
+
+    <ui:define name="headingContent">
+        <h:outputText value="Add Invoice" styleClass="headers-region"/>
+    </ui:define>
+
+    <ui:define name="buttonContent">
+        <h:commandButton image="resources/images/Add.jpg" action="#{invoiceBean.addInvoice()}" value="Add Invoice"/>
+    </ui:define>
+
+    <ui:param name="idParam" value="" />
+    <ui:param name="cashierParam" value="#{invoiceBean.invoiceModel.cashier}" />
+    <ui:param name="orderParam" value="#{invoiceBean.orderDate}" />
+    <ui:param name="dueParam" value="#{invoiceBean.dueDate}" />
+    <ui:param name="itemsParam" value="#{invoiceBean.invoiceModel.items}" />
+
+</ui:composition>
