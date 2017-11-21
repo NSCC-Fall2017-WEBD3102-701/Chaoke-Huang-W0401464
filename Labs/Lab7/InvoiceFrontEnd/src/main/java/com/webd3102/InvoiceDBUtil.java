@@ -54,19 +54,18 @@ public class InvoiceDBUtil {
 
             myRs = myStmt.executeQuery(sql);
 
-            // process result set
+
             while (myRs.next()) {
 
-                // retrieve data from result set row
                 int id = myRs.getInt("Invoice_id");
                 String cashier = myRs.getString("Cashier");
                 String items = myRs.getString("items");
                 String orderDate = myRs.getString("Order_date");
                 String dueDate = myRs.getString("Due_date");
-                // create new actor object
+
                 Invoice temp = new Invoice(id, cashier, orderDate, dueDate, items.split(","));
 
-                // add it to the list of actors
+
                 invoices.add(temp);
             }
 
@@ -119,7 +118,7 @@ public class InvoiceDBUtil {
                 myStmt.setInt(1, lastID);
                 myStmt.setInt(2,Integer.parseInt(itemsArr[i]));
                 myStmt.execute();
-                myStmt2.close();
+
 
             }
         } finally {
@@ -150,7 +149,6 @@ public class InvoiceDBUtil {
 
             myRs = myStmt.executeQuery(sql);
 
-            // process result set
 
             // retrieve data from result set row
             int id = myRs.getInt("Invoice_id");
