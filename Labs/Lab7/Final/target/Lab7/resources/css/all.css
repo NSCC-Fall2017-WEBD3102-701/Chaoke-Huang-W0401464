@@ -1,0 +1,2 @@
+@import url("#{resource['bootstrap-lib/css/bootstrap.css']}");
+@import url("#{resource['jquery-ui:css/jquery-ui.css']}");
