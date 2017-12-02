@@ -1,26 +1,44 @@
 package com.webd3102;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.inject.Scope;
-import javax.print.attribute.standard.PrinterURI;
-import java.io.IOException;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
-@ManagedBean(name="productService")
+@ManagedBean(name = "productService")
+@SessionScoped
 public class ProductService {
+    private static Product currentProduct;
     private List<Product> products = new ArrayList<>();
+    private List<Product> searchProducts = new ArrayList<>();
+    private String searchStr;
     private HttpClient httpClient = new HttpClient();
     private ProductDBUtil productDBUtil;
-    private static Product currentProduct;
 
 
+    public ProductService() throws Exception {
+        super();
+        productDBUtil = ProductDBUtil.getInstance();
 
+    }
+
+    public String getSearchStr() {
+        return searchStr;
+    }
+
+    public void setSearchStr(String searchStr) {
+        this.searchStr = searchStr;
+    }
+
+    public List<Product> getSearchProducts() {
+        return searchProducts;
+    }
+
+    public void setSearchProducts(List<Product> searchProducts) {
+        this.searchProducts = searchProducts;
+    }
 
     public Product getCurrentProduct() {
         return currentProduct;
@@ -30,26 +48,35 @@ public class ProductService {
         this.currentProduct = currentProduct;
     }
 
-
-    public ProductService() throws Exception {
-        super();
-        productDBUtil = ProductDBUtil.getInstance();
-
-    }
-
     public List<Product> getProducts() throws Exception {
         products = productDBUtil.getProducts();
         return products;
     }
 
-    public String goProductDetail(Product product){
+    public String goProductDetail(Product product) {
         //System.out.println(product.getName());
         this.setCurrentProduct(product);
-       // System.out.println(product.getId());
+        // System.out.println(product.getId());
         return "productDetail.xhtml?faces-redirect=true";
 
     }
 
 
+    public String showSearch() throws Exception {
+//        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+//        String searchStr = ec.getRequestParameterMap().get("search:inputStr");
+        List<Product> lastestProducts = getProducts();
+        List<Product> tempProducts = new ArrayList<>();
+        for (Product product : lastestProducts) {
+
+            if (product.getName().toLowerCase().contains(searchStr.toLowerCase())) {
+
+                tempProducts.add(product);
+            }
+
+        }
+        this.setSearchProducts(tempProducts);
+        return "sleepSearch.xhtml?faces-redirect=true";
+    }
 
 }

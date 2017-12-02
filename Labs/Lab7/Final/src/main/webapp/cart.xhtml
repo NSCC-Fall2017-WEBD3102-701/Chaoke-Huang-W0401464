@@ -18,34 +18,22 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form id="search">
-            <div class="row">
-                <div class="offset-7 col-2"><h:inputText id="inputStr" value="#{productService.searchStr}"></h:inputText></div>
-                <div class="col-1">
-                </div>
-                <div class="col-2">
-                    <h:commandButton styleClass="btn btn-primary" action="#{productService.showSearch()}" value="Search"/>
-                </div>
-            </div>
-        </h:form>
+        <h4>Total: #{cart.total}</h4>
         <h:form>
-            <ui:repeat value="#{productService.products}" var="p">
+            <ui:repeat value="#{cart.purchases}" var="pur">
                 <hr></hr>
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                        <h:graphicImage value="#{p.pic_ref}" styleClass="img-responsive" style="height: 8em"/>
+                        <h:graphicImage value="#{pur.product.pic_ref}" styleClass="img-responsive" style="height: 8em"/>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                        <h4><h:commandLink action="#{productService.goProductDetail(p)}">#{p.name}</h:commandLink></h4>
+                        <h4><h:commandLink action="#{productService.goProductDetail(pur.product)}">#{pur.product.name}</h:commandLink></h4>
                     </div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                        $ #{p.price}
+                        $ #{pur.product.price}
                     </div>
                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                        #{p.description}
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                        <h:commandButton action="#{cart.addPurchase(p)}" value="Add to Cart" styleClass="btn btn-info"></h:commandButton>
+                        Amount: #{pur.amount}
                     </div>
                 </div>
             </ui:repeat>

@@ -15,7 +15,19 @@ public class Purchase {
     public Purchase() {
         super();
     }
+    public Purchase(Product product) {
+        this.product = product;
+        this.amount = 1;
+        this.subtotal = product.getPrice();
 
+    }
+
+    public Purchase(Product product,int amount) {
+        this.product = product;
+        this.amount = amount;
+        this.subtotal = product.getPrice()*amount;
+
+    }
 
     public Product getProduct() {
         return product;
@@ -25,6 +37,7 @@ public class Purchase {
     public void setProduct(Product product) {
         this.product = product;
     }
+
 
     public int getAmount() {
         return amount;
