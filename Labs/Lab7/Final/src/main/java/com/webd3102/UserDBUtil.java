@@ -115,6 +115,34 @@ public class UserDBUtil {
         return user;
     }
 
+    public boolean checkAdmin(User user){
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = getConnection();
+
+            String sql = "select * from role_user where (role_id = 1 AND user_id = ?)";
+            myStmt = myConn.prepareStatement(sql);
+            myStmt.setInt(1, user.getId());
+            myRs = myStmt.executeQuery();
+
+
+            // retrieve data from result set row
+            while(myRs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+
+        return false;
+    }
+
 
 
 
@@ -145,9 +173,6 @@ public class UserDBUtil {
                 myStmt.setInt(1, id);
                 myStmt.execute();
             }
-
-
-
 
         } catch (SQLException e) {
             e.printStackTrace();

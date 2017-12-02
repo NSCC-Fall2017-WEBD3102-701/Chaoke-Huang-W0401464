@@ -11,9 +11,47 @@ import java.util.Map;
 @ManagedBean(name = "userService")
 @SessionScoped
 public class UserService {
-
+    String longinUsername;
+    boolean isAuthenticated;
+    String longinPassword;
     UserDBUtil userDBUtil;
+    boolean adminStatus;
+
     public static final String SALT = "ck-salt";
+    public boolean isAuthenticated() {
+        return isAuthenticated;
+    }
+
+    public void setAuthenticated(boolean authenticated) {
+        isAuthenticated = authenticated;
+    }
+
+
+    public boolean isAdminStatus() {
+        return adminStatus;
+    }
+
+    public void setAdminStatus(boolean adminStatus) {
+        this.adminStatus = adminStatus;
+    }
+
+
+
+    public String getLonginUsername() {
+        return longinUsername;
+    }
+
+    public void setLonginUsername(String longinUsername) {
+        this.longinUsername = longinUsername;
+    }
+
+    public String getLonginPassword() {
+        return longinPassword;
+    }
+
+    public void setLonginPassword(String longinPassword) {
+        this.longinPassword = longinPassword;
+    }
 
     public UserService() throws Exception {
         super();
@@ -35,8 +73,7 @@ public class UserService {
         return;
     }
 
-    public Boolean login(String username, String password) {
-        Boolean isAuthenticated = false;
+    public String login(String username, String password) {
         User user = userDBUtil.getUser(username);
 
         // remember to use the same SALT value use used while storing password
@@ -45,11 +82,15 @@ public class UserService {
         String hashedPassword = generateHash(saltedPassword);
 
         if(user.getPassword().equals(hashedPassword)){
-            isAuthenticated = true;
+            this.setAuthenticated(true);
+            this.setAdminStatus(userDBUtil.checkAdmin(user));
         }else{
-            isAuthenticated = false;
+            this.setAuthenticated(false);
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback","User name and password don't match, please try again.");
+            return "login.xhtml?faces-redirect=true";
         }
-        return isAuthenticated;
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback","Welcome to sleeping well, "+user.getUser_name()+"!");
+        return "sleep.xhtml?faces-redirect=true";
     }
 
     public static String generateHash(String input) {
