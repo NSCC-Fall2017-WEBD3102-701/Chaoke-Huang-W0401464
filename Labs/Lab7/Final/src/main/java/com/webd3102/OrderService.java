@@ -2,53 +2,46 @@ package com.webd3102;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import java.util.ArrayList;
-import java.util.List;
 
-@ManagedBean(name = "cart")
+@ManagedBean(name = "orderService")
 @SessionScoped
-public class Cart {
-    private List<Purchase> purchases = new ArrayList<>();
-    private double total=0;
+public class OrderService {
+    private Order order;
 
+    public Order getOrder() {
+        return order;
+    }
 
-    public Cart() {
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public OrderService() throws Exception {
         super();
-    }
+        order = new Order();
+       // userDBUtil = UserDBUtil.getInstance();
 
-    public List<Purchase> getPurchases() {
-        return purchases;
-    }
-
-    public void setPurchases(List<Purchase> purchases) {
-        this.purchases = purchases;
-    }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public void setTotal(double total) {
-        this.total = total;
     }
 
     public String addPurchase(Product product, int amount){
         Purchase purchase = new Purchase(product, amount);
-        purchases.add(purchase);
-        this.setTotal(this.getTotal()+purchase.getSubtotal());
+        order.getPurchases().add(purchase);
+        order.setTotal(order.getTotal()+purchase.getSubtotal());
         return "cart.xhtml?faces-redirect=true";
     }
 
+
+
     public void subPurchase(Purchase purchase){
-        purchases.remove(purchase);
-        this.setTotal(this.getTotal()- purchase.getSubtotal());
+        order.getPurchases().remove(purchase);
+        order.setTotal(order.getTotal()- purchase.getSubtotal());
         return;
     }
 
     public String addPurchase(Product product){
         Purchase purchase = new Purchase(product);
-        purchases.add(purchase);
-        this.setTotal(this.getTotal()+purchase.getSubtotal());
+        order.getPurchases().add(purchase);
+        order.setTotal(order.getTotal()+purchase.getSubtotal());
         return "cart.xhtml?faces-redirect=true";
     }
 
@@ -62,7 +55,7 @@ public class Cart {
 
     public String subAmount(Purchase purchase){
         if (purchase.getAmount() - 1 < 0) {
-            purchases.remove(purchase);
+            order.getPurchases().remove(purchase);
             return "cart.xhtml";
         }
         purchase.setAmount(purchase.getAmount() - 1);
@@ -73,15 +66,17 @@ public class Cart {
 
     public void updateTotal(){
         double total=0;
-        for (Purchase  pur: purchases
-             ) {
+        for (Purchase  pur: order.getPurchases()
+                ) {
 
             total = total + pur.getSubtotal();
         }
 
-        setTotal(total);
+        order.setTotal(total);
         return;
 
     }
+
+
 
 }

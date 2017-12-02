@@ -18,9 +18,9 @@
     </ui:define>
 
     <ui:define name="content">
-        <h4>Total: $#{cart.total}</h4>
+        <h4>Total: $#{orderService.order.total}</h4>
         <h:form>
-            <ui:repeat value="#{cart.purchases}" var="pur">
+            <ui:repeat value="#{orderService.order.purchases}" var="pur">
                 <hr></hr>
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -34,14 +34,14 @@
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                         $ #{pur.product.price}
                     </div>
-                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                        <h:outputLabel id="amount" value="#{pur.amount}"/>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <h:outputLabel id="amount"  value="X #{pur.amount}"/>
                     </div>
-                    <div class="col-1">
+                    <div  class="col-3">
                         <h:commandLink
-                                action="#{cart.addAmount(pur)}"><h3>+</h3></h:commandLink>
-                        <h:commandLink
-                                action="#{cart.subAmount(pur)}"><h2>-</h2></h:commandLink>
+                                action="#{orderService.addAmount(pur)}"><h:outputLabel styleClass="label label-primary" style="font-size: 3em" value="+"></h:outputLabel></h:commandLink>
+                        &nbsp;&nbsp;<h:commandLink
+                                action="#{orderService.subAmount(pur)}"><h:outputLabel styleClass="label label-primary" style="font-size: 4em" value="-"></h:outputLabel></h:commandLink>
                     </div>
 
                 </div>
