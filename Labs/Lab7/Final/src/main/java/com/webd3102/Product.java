@@ -1,8 +1,6 @@
 package com.webd3102;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 
 //@XmlRootElement(name = "product")
 @ManagedBean(name="product")
@@ -23,7 +21,13 @@ public class Product implements Comparable<Product>{
         this.pic_ref = pic_ref;
 
     }
+    public Product( String name, Double price, String discription,String pic_ref) {
+        this.name = name;
+        this.price = price;
+        this.description = discription;
+        this.pic_ref = pic_ref;
 
+    }
 
     public Integer getId() {
         return id;

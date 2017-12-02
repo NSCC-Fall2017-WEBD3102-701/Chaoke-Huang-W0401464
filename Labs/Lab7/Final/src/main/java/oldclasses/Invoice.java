@@ -1,8 +1,6 @@
-package com.webd3102;
+package oldclasses;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import java.util.List;
 
 
 @ManagedBean(name = "invoice")

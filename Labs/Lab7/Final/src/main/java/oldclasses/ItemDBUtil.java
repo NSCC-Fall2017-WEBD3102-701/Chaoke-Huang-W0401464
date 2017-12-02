@@ -1,13 +1,10 @@
-package com.webd3102;
-
-import com.sun.deploy.util.StringUtils;
+package oldclasses;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.*;

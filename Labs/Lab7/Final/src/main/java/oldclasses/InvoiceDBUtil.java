@@ -1,4 +1,4 @@
-package com.webd3102;
+package oldclasses;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

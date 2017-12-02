@@ -1,6 +1,7 @@
 package com.webd3102;
 
 import com.google.gson.Gson;
+import oldclasses.Invoice;
 
 public class JsonSerializer<T> {
 
