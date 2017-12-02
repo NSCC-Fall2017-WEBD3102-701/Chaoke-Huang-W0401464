@@ -2,7 +2,6 @@ package com.webd3102;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.AjaxBehaviorEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,11 +32,11 @@ public class Cart {
         this.total = total;
     }
 
-    public void addPurchase(Product product, int amount){
+    public String addPurchase(Product product, int amount){
         Purchase purchase = new Purchase(product, amount);
         purchases.add(purchase);
         this.setTotal(this.getTotal()+purchase.getSubtotal());
-        return;
+        return "cart.xhtml?faces-redirect=true";
     }
 
     public void subPurchase(Purchase purchase){
@@ -51,6 +50,38 @@ public class Cart {
         purchases.add(purchase);
         this.setTotal(this.getTotal()+purchase.getSubtotal());
         return "cart.xhtml?faces-redirect=true";
+    }
+
+    public String addAmount(Purchase purchase){
+
+        purchase.setAmount(purchase.getAmount() + 1);
+        purchase.setSubtotal(purchase.getProduct().getPrice()*purchase.getAmount());
+        updateTotal();
+        return "cart.xhtml?faces-redirect=true";
+    }
+
+    public String subAmount(Purchase purchase){
+        if (purchase.getAmount() - 1 < 0) {
+            purchases.remove(purchase);
+            return "cart.xhtml";
+        }
+        purchase.setAmount(purchase.getAmount() - 1);
+        purchase.setSubtotal(purchase.getProduct().getPrice()*purchase.getAmount());
+        updateTotal();
+        return "cart.xhtml?faces-redirect=true";
+    }
+
+    public void updateTotal(){
+        double total=0;
+        for (Purchase  pur: purchases
+             ) {
+
+            total = total + pur.getSubtotal();
+        }
+
+        setTotal(total);
+        return;
+
     }
 
 }

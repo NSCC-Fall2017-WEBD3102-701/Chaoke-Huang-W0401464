@@ -33,15 +33,15 @@
         </div>
         <br></br>
         <div class="row">
-            <h4 class="offset-3 col-1"><h:outputLabel id="show" value="#{purchase.amount}"/></h4>
+            <h4 class="offset-3 col-1"><h:outputLabel id="amount" value="#{purchase.amount}"/></h4>
             <h:form styleClass="col-1" preparedId="false">
                 <h:commandButton value="+" styleClass="btn btn-success">
-                    <f:ajax event="click" render="show" listener="#{purchase.addAmount}"/>
+                    <f:ajax event="click" render="amount" listener="#{purchase.addAmount}"/>
                 </h:commandButton>
             </h:form>
             <h:form preparedId="false" styleClass="col-1">
                 <h:commandButton value="-" styleClass="btn btn-success">
-                    <f:ajax event="click" render="show" listener="#{purchase.subAmount}"/>
+                    <f:ajax event="click" render="amount" listener="#{purchase.subAmount}"/>
                 </h:commandButton>
             </h:form>
         </div>
@@ -49,7 +49,7 @@
         <div class="row">
             <div class="offset-4">
                 <h:form method="post" action="#">
-                    <h:commandButton action="#" value="Add to Cart" styleClass="btn btn-primary"/>
+                    <h:commandButton action="#{cart.addPurchase(productService.currentProduct,purchase.amount)}" value="Add to Cart" styleClass="btn btn-primary"/>
                 </h:form>
             </div>
         </div>

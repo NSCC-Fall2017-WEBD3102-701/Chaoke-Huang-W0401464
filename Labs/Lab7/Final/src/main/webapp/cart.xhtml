@@ -18,7 +18,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <h4>Total: #{cart.total}</h4>
+        <h4>Total: $#{cart.total}</h4>
         <h:form>
             <ui:repeat value="#{cart.purchases}" var="pur">
                 <hr></hr>
@@ -27,14 +27,23 @@
                         <h:graphicImage value="#{pur.product.pic_ref}" styleClass="img-responsive" style="height: 8em"/>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                        <h4><h:commandLink action="#{productService.goProductDetail(pur.product)}">#{pur.product.name}</h:commandLink></h4>
+                        <h4><h:commandLink
+                                action="#{productService.goProductDetail(pur.product)}">#{pur.product.name}</h:commandLink>
+                        </h4>
                     </div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                         $ #{pur.product.price}
                     </div>
                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                        Amount: #{pur.amount}
+                        <h:outputLabel id="amount" value="#{pur.amount}"/>
                     </div>
+                    <div class="col-1">
+                        <h:commandLink
+                                action="#{cart.addAmount(pur)}"><h3>+</h3></h:commandLink>
+                        <h:commandLink
+                                action="#{cart.subAmount(pur)}"><h2>-</h2></h:commandLink>
+                    </div>
+
                 </div>
             </ui:repeat>
         </h:form>
