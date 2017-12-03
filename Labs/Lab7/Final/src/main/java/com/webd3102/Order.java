@@ -10,6 +10,15 @@ import java.util.List;
 public class Order {
     private List<Purchase> purchases = new ArrayList<>();
     Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     private double total=0;
 
 

@@ -4,6 +4,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import java.util.Map;
 @ManagedBean(name = "userService")
 @SessionScoped
 public class UserService {
+    User user;
     String longinUsername;
     boolean isAuthenticated;
     String longinPassword;
@@ -35,7 +37,13 @@ public class UserService {
         this.adminStatus = adminStatus;
     }
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getLonginUsername() {
         return longinUsername;
@@ -55,7 +63,8 @@ public class UserService {
 
     public UserService() throws Exception {
         super();
-
+        user = new User();
+        user.setUser_name("Guest");
         userDBUtil = UserDBUtil.getInstance();
 
 
@@ -74,15 +83,16 @@ public class UserService {
     }
 
     public String login(String username, String password) {
-        User user = userDBUtil.getUser(username);
+        User tempUser = userDBUtil.getUser(username);
 
         // remember to use the same SALT value use used while storing password
         // for the first time.
         String saltedPassword = SALT + password;
         String hashedPassword = generateHash(saltedPassword);
 
-        if(user.getPassword().equals(hashedPassword)){
+        if(tempUser.getPassword().equals(hashedPassword)){
             this.setAuthenticated(true);
+            this.setUser(tempUser);
             this.setAdminStatus(userDBUtil.checkAdmin(user));
         }else{
             this.setAuthenticated(false);
@@ -91,6 +101,20 @@ public class UserService {
         }
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback","Welcome to sleeping well, "+user.getUser_name()+"!");
         return "sleep.xhtml?faces-redirect=true";
+    }
+
+    public String logout(){
+
+        if(user.getUser_name().equals("Guest")){
+
+            return "login.xhtml?faces-redirect=true";
+        }
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession Session = (HttpSession) fc.getExternalContext()
+                .getSession(false);
+        Session.invalidate();
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback","You have logged out.");
+        return "login.xhtml?faces-redirect=true";
     }
 
     public static String generateHash(String input) {

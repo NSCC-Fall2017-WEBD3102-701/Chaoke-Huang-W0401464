@@ -9,7 +9,7 @@ import javax.faces.event.AjaxBehaviorEvent;
 @ViewScoped
 public class Purchase {
     private Product product;
-    private int amount;
+    private int amount=1;
     private double subtotal;
 
 
@@ -63,7 +63,7 @@ public class Purchase {
     }
 
     public void subAmount() {
-        if (this.getAmount() >= 1) {
+        if (this.getAmount() >= 2) {
             this.setAmount(this.getAmount() - 1);
         }
         return;
