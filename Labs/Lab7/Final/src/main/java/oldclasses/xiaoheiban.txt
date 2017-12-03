@@ -1,0 +1,29 @@
+
+            <div class="row">
+                <h:outputLabel styleClass="offset-3 col-2">Password</h:outputLabel>
+                <h:inputSecret styleClass="col-3" value="#{user.password}" required="true"
+                             id="password"
+                             label="Password"
+                             requiredMessage="Please enter the password which is more than four letters.">
+                    <f:validateLength minimum="5" maximum="15"/>
+                </h:inputSecret>
+                <h:message for="password" styleClass="error"/>
+            </div>
+            <br></br>
+
+            <div class="row">
+                <h:outputLabel styleClass="offset-3 col-2">Confirm Password</h:outputLabel>
+                <h:inputSecret styleClass="col-3"  required="true"
+                               id="confirmpassword"
+                               label="Confirm Password"
+                               requiredMessage="Please enter the password which is more than four letters.">
+                    <f:validateLength minimum="5" maximum="15"/>
+                </h:inputSecret>
+                <h:message for="confirmpassword" styleClass="error"/>
+            </div>
+
+<dependency>
+	<groupId>org.primefaces</groupId>
+	<artifactId>primefaces</artifactId>
+	<version>6.1</version>
+</dependency>
