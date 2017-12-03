@@ -2,6 +2,8 @@ package com.webd3102;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -9,11 +11,12 @@ import java.util.Date;
 @SessionScoped
 public class OrderService {
     private Order order;
+    private OrderDBUtil orderDBUtil;
 
     public OrderService() throws Exception {
         super();
         order = new Order();
-        // userDBUtil = UserDBUtil.getInstance();
+        orderDBUtil = OrderDBUtil.getInstance();
 
     }
 
@@ -78,12 +81,28 @@ public class OrderService {
         return;
     }
 
-    public String goCheckOut() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        Date currentDate = new Date();
-        order.setDate(currentDate);
-        return "checkout.xhmtl:faces-redirect=true";
+    public String goCheckOut(User user) {
+        if(order.getPurchases().size() == 0){
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", "The cart is empty, please enjoy your purchase in Sleeping Well.");
+            return "sleep.xhtml:faces-redirect=true";
+        }
+        order.setDate(LocalDate.now());
+        order.setUser(user);
+
+        return "checkout.xhtml:faces-redirect=true";
     }
 
+    public String confirmCheckout()    {
+        if(order.getUser().getBalance() < order.getTotal()) {
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", "You don't have enough blance to finish the purchase.");
+            return "checkout.xhtml:faces-redirect=true";
+        }
 
+        else {
+            orderDBUtil.addOrder(order);
+            order.resetOrder();
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", "Congrats to your purchase!");
+        return "sleep.xhtml?faces-redirect=true";
+        }
+    }
 }

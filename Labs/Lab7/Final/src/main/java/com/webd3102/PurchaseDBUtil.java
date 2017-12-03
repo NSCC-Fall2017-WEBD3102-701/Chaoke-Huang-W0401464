@@ -8,54 +8,57 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDBUtil {
+public class PurchaseDBUtil {
 
-    private static ProductDBUtil instance;
+    private static PurchaseDBUtil instance;
     private DataSource dataSource;
     private String jndiName = "java:comp/env/jdbc/final";
 
-    ProductDBUtil() throws Exception {
+    PurchaseDBUtil() throws Exception {
         dataSource = getDataSource();
     }
 
-    public static ProductDBUtil getInstance() throws Exception {
+    public static PurchaseDBUtil getInstance() throws Exception {
         if (instance == null) {
-            instance = new ProductDBUtil();
+            instance = new PurchaseDBUtil();
         }
-
         return instance;
     }
 
     private DataSource getDataSource() throws NamingException {
         Context context = new InitialContext();
-
         DataSource theDataSource = (DataSource) context.lookup(jndiName);
-
         return theDataSource;
     }
 
-    public Product getProductById(int id) throws Exception {
+    public List<Purchase> getPurchasesByOrderId(int orderId) {
         Connection myConn = null;
         PreparedStatement myStmt = null;
         ResultSet myRs = null;
 
-        Product product = new Product();
+        List<Purchase> purchases = new ArrayList<>();
+
         try {
+
             myConn = getConnection();
 
-            String sql = "select * from products where (id = ?)";
+            String sql = "select * from order_product where (order_id = ?)";
 
             myStmt = myConn.prepareStatement(sql);
-            myStmt.setInt(1, id);
+            myStmt.setInt(1, orderId);
             myRs = myStmt.executeQuery();
 
             // retrieve data from result set row
             while (myRs.next()) {
-                product.setId(myRs.getInt("id"));
-                product.setName(myRs.getString("name"));
-                product.setDescription(myRs.getString("description"));
-                product.setPrice(myRs.getDouble("price"));
-                product.setPic_ref(myRs.getString("pic_ref"));
+                Purchase purchase = new Purchase();
+                purchase.setId(myRs.getInt("id"));
+                purchase.setProduct(ProductDBUtil.getInstance().getProductById(myRs.getInt("product_id")));
+                //purchase.setOrder(OrderDBUtil.getInstance());
+                purchase.setPrice(myRs.getDouble("price"));
+                purchase.setAmount(myRs.getInt("price"));
+                purchase.setSubtotal(myRs.getDouble("subtotal"));
+
+                purchases.add(purchase);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,46 +67,9 @@ public class ProductDBUtil {
         } finally {
             close(myConn, myStmt, myRs);
         }
-        return product;
+        return purchases;
     }
 
-    public List<Product> getProducts() throws Exception {
-
-        List<Product> products = new ArrayList<>();
-
-        Connection myConn = null;
-        Statement myStmt = null;
-        ResultSet myRs = null;
-
-        try {
-            myConn = getConnection();
-
-            String sql = "select * from products order by id";
-
-            myStmt = myConn.createStatement();
-
-            myRs = myStmt.executeQuery(sql);
-
-
-            while (myRs.next()) {
-
-                int id = myRs.getInt("id");
-                String name = myRs.getString("name");
-                String description = myRs.getString("description");
-                Double price = myRs.getDouble("price");
-                String pic_ref = myRs.getString("pic_ref");
-
-                Product temp = new Product(id, name, price, description, pic_ref);
-
-
-                products.add(temp);
-            }
-
-            return products;
-        } finally {
-            close(myConn, myStmt, myRs);
-        }
-    }
 
 
     private Connection getConnection() throws Exception {
@@ -131,10 +97,8 @@ public class ProductDBUtil {
             if (theConn != null) {
                 theConn.close();
             }
-
         } catch (Exception exc) {
             exc.printStackTrace();
         }
     }
-
 }

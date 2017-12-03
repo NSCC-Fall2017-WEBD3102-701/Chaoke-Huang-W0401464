@@ -13,6 +13,7 @@ public class Product implements Comparable<Product>{
 
 
     public Product() {}
+
     public Product(Integer id, String name, Double price, String discription,String pic_ref) {
         this.id = id;
         this.name = name;

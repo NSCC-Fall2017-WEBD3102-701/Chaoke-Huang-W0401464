@@ -57,7 +57,7 @@
         <div class="row">
             <div class="col-5"></div>
             <h:form>
-            <h:commandButton styleClass="btn btn-primary" action="#{orderService.goCheckOut()}"
+            <h:commandButton styleClass="btn btn-primary" action="#{orderService.goCheckOut(userService.user)}"
                                       value="Check Out" />
             </h:form>
 

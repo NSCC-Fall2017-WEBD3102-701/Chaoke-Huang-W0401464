@@ -1,44 +1,35 @@
 package com.webd3102;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.AjaxBehaviorEvent;
 
 @ManagedBean(name = "purchase")
 @ViewScoped
 public class Purchase {
-    private Product product;
-    private int amount=1;
+    private int id;
+
+    private double price;
+    private int amount = 1;
     private double subtotal;
 
+    private Order order;
+    private Product product;
 
-    public Purchase() {
-        super();
-    }
-    public Purchase(Product product) {
-        this.product = product;
-        this.amount = 1;
-        this.subtotal = product.getPrice();
-
+    public int getId() {
+        return id;
     }
 
-    public Purchase(Product product,int amount) {
-        this.product = product;
-        this.amount = amount;
-        this.subtotal = product.getPrice()*amount;
-
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
+    public double getPrice() {
+        return price;
     }
 
-
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setPrice(double price) {
+        this.price = price;
     }
-
 
     public int getAmount() {
         return amount;
@@ -56,8 +47,41 @@ public class Purchase {
         this.subtotal = subtotal;
     }
 
-    public void addAmount() {
+    public Order getOrder() {
+        return order;
+    }
 
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Purchase() {
+        super();
+    }
+
+    public Purchase(Product product) {
+        this.price = product.getPrice();
+        this.amount = 1;
+        this.subtotal = price * amount;
+        this.product = product;
+    }
+
+    public Purchase(Product product, int amount) {
+        this.price = product.getPrice();
+        this.amount = amount;
+        this.subtotal = price * amount;
+        this.product = product;
+    }
+
+    public void addAmount() {
         this.setAmount(this.getAmount() + 1);
         return;
     }
@@ -68,5 +92,4 @@ public class Purchase {
         }
         return;
     }
-
 }

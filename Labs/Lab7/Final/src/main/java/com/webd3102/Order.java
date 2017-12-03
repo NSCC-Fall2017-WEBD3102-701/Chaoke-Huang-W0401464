@@ -2,28 +2,34 @@ package com.webd3102;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @ManagedBean(name = "order")
 public class Order {
+    private int id;
+    private LocalDate date;
     private List<Purchase> purchases = new ArrayList<>();
-    Date date;
+    private User user;
+    private double total=0;
 
-    public Date getDate() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    private double total=0;
-
-
-    public Order() {
-        super();
     }
 
     public List<Purchase> getPurchases() {
@@ -34,6 +40,14 @@ public class Order {
         this.purchases = purchases;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public double getTotal() {
         return total;
     }
@@ -42,6 +56,11 @@ public class Order {
         this.total = total;
     }
 
-
-
+    public void resetOrder(){
+        this.purchases.clear();
+        this.total = 0;
+    }
+    public Order() {
+        super();
+    }
 }

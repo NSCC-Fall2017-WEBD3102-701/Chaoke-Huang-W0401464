@@ -29,7 +29,6 @@ public class MyFilter implements Filter {
         boolean loggedIn = (session != null) && (session.getAttribute("userService") != null);
         if (loggedIn == true) {
             UserService userService = (UserService) session.getAttribute("userService");
-            System.out.println(userService.getUser().getUser_name());
             if (userService.getUser().getUser_name().equals("Guest")) {
                 loggedIn = false;
             }
