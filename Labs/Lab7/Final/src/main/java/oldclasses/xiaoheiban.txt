@@ -27,3 +27,38 @@
 	<artifactId>primefaces</artifactId>
 	<version>6.1</version>
 </dependency>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        try {
+
+            HttpServletRequest reqt = (HttpServletRequest) servletRequest;
+            // HttpServletResponse resp = (HttpServletResponse) servletResponse;
+            HttpSession ses = reqt.getSession(false);
+            UserService userService = (ses != null) ? (UserService) ses.getAttribute("userService") : null;
+
+
+            String reqURI = reqt.getRequestURI();
+            if (reqURI.contains(".css") || reqURI.contains(".js"))
+                logger.log(Level.WARNING, reqURI+" This is resource URI ");
+            else {
+                logger.log(Level.INFO, reqURI+" This is not resource URI ");
+            }
+            filterChain.doFilter(servletRequest, servletResponse);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }

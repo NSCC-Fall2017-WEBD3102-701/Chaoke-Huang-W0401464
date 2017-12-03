@@ -136,7 +136,10 @@ public class UserService {
 
         return hash.toString();
     }
+public String goLogin(){
 
+        return"login.xhtml?faces-redirect=true";
+}
 
 
 }

@@ -35,12 +35,12 @@
         <div class="row">
             <h4 class="offset-3 col-1"><h:outputLabel id="amount" value="#{purchase.amount}"/></h4>
             <h:form styleClass="col-1" preparedId="false">
-                <h:commandButton value="+" styleClass="btn btn-success">
+                <h:commandButton value="+" styleClass="btn btn-info">
                     <f:ajax event="click" render="amount" listener="#{purchase.addAmount}"/>
                 </h:commandButton>
             </h:form>
             <h:form preparedId="false" styleClass="col-1">
-                <h:commandButton value="-" styleClass="btn btn-success">
+                <h:commandButton value="-" styleClass="btn btn-info">
                     <f:ajax event="click" render="amount" listener="#{purchase.subAmount}"/>
                 </h:commandButton>
             </h:form>
