@@ -7,7 +7,9 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 @ManagedBean(name = "userService")
 @SessionScoped
@@ -16,8 +18,17 @@ public class UserService {
     String longinUsername;
     boolean isAuthenticated;
     String longinPassword;
+    User inspectedUser;
     UserDBUtil userDBUtil;
     boolean adminStatus;
+
+    public User getInspectedUser() {
+        return inspectedUser;
+    }
+
+    public void setInspectedUser(User inspectedUser) {
+        this.inspectedUser = inspectedUser;
+    }
 
     public static final String SALT = "ck-salt";
     public boolean isAuthenticated() {
@@ -64,6 +75,7 @@ public class UserService {
     public UserService() throws Exception {
         super();
         user = new User();
+        inspectedUser = new User();
         user.setUser_name("Guest");
         userDBUtil = UserDBUtil.getInstance();
 
@@ -81,7 +93,11 @@ public class UserService {
 
         return;
     }
+public String goInspectedUser(User user){
+        this.inspectedUser = user;
+        return "admin_user_inspect.xhtml?faces-redirect=true";
 
+}
     public String login(String username, String password) {
         User tempUser = userDBUtil.getUser(username);
 
@@ -94,13 +110,17 @@ public class UserService {
             this.setAuthenticated(true);
             this.setUser(tempUser);
             this.setAdminStatus(userDBUtil.checkAdmin(user));
+            if(this.isAdminStatus()){
+                FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback","Welcome Administrator, "+user.getUser_name()+"!");
+                return "admin";
+            }
         }else{
             this.setAuthenticated(false);
             FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback","User name and password don't match, please try again.");
             return "login.xhtml?faces-redirect=true";
         }
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback","Welcome to sleeping well, "+user.getUser_name()+"!");
-        return "sleep.xhtml?faces-redirect=true";
+        return "normal";
     }
 
     public String logout(){
@@ -116,6 +136,20 @@ public class UserService {
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback","You have logged out.");
         return "login.xhtml?faces-redirect=true";
     }
+
+    public List<User> getAllUsers() throws Exception {
+
+        List<User> users = new ArrayList<>();
+
+        users = userDBUtil.getUsers();
+
+
+        return users;
+
+    }
+
+
+
 
     public static String generateHash(String input) {
         StringBuilder hash = new StringBuilder();

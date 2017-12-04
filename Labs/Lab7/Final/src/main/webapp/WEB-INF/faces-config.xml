@@ -6,16 +6,16 @@
 
 
     <navigation-rule>
-        <from-view-id>/start.xhtml</from-view-id>
+        <from-view-id>/login.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{pageController.processPage1}</from-action>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/page1.xhtml</to-view-id>
+            <from-action>#{userService.login(userService.longinUsername,userService.longinPassword)}</from-action>
+            <from-outcome>normal</from-outcome>
+            <to-view-id>/sleep.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-action>#{pageController.processPage2}</from-action>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/page2.xhtml</to-view-id>
+            <from-action>#{userService.login(userService.longinUsername,userService.longinPassword)}</from-action>
+            <from-outcome>admin</from-outcome>
+            <to-view-id>/adminUsers.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

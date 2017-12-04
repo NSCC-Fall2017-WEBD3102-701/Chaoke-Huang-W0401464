@@ -1,5 +1,7 @@
 package com.webd3102;
 
+import com.sun.org.apache.xpath.internal.operations.Or;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -115,6 +117,51 @@ public class OrderDBUtil {
             close(myConn, myStmt);
         }
     }
+
+
+    public List<Order> getOrdersByUser(User user){
+
+
+        List<Order> orders = new ArrayList<>();
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+
+
+        try {
+
+            myConn = getConnection();
+
+            String sql = "select * from orders where (user_id = ?)";
+
+            myStmt = myConn.prepareStatement(sql);
+            myStmt.setInt(1, user.getId());
+            myRs = myStmt.executeQuery();
+
+            // retrieve data from result set row
+            while (myRs.next()) {
+                Order order = new Order();
+                order.setId(myRs.getInt("id"));
+                order.setUser(user);
+                order.setTotal(myRs.getDouble("total"));
+                order.setDate(myRs.getDate("created_at").toLocalDate());
+                order.setPurchases(PurchaseDBUtil.getInstance().getPurchasesByOrderId(order.getId()));
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+        return orders;
+
+
+
+    }
+
 
     private Connection getConnection() throws Exception {
 

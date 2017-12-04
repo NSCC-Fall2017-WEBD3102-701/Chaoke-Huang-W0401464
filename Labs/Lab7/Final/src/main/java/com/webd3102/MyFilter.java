@@ -20,23 +20,38 @@ public class MyFilter implements Filter {
     }
 
     @Override
+    //this method is mainly copied from internet
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession(false);
         String loginURL = request.getContextPath() + "/login.xhtml";
+        String indexURL = request.getContextPath() + "/sleep.xhtml";
 
         boolean loggedIn = (session != null) && (session.getAttribute("userService") != null);
+        boolean isAdmin = false;
         if (loggedIn == true) {
             UserService userService = (UserService) session.getAttribute("userService");
             if (userService.getUser().getUser_name().equals("Guest")) {
                 loggedIn = false;
+            } else {
+                loggedIn = true;
+                isAdmin = userService.isAdminStatus();
+
             }
-            else{loggedIn = true;}
         }
         boolean loginRequest = request.getRequestURI().equals(loginURL);
         boolean resourceRequest = request.getRequestURI().startsWith(request.getContextPath() + ResourceHandler.RESOURCE_IDENTIFIER + "/");
         boolean ajaxRequest = "partial/ajax".equals(request.getHeader("Faces-Request"));
+
+        if (request.getRequestURI().contains("admin")) {
+            if (!isAdmin) {
+                response.sendRedirect(indexURL);
+                return;
+            }
+
+        }
+
 
         if (loggedIn || loginRequest || resourceRequest) {
             if (!resourceRequest) { // Prevent browser from caching restricted resources. See also https://stackoverflow.com/q/4194207/157882

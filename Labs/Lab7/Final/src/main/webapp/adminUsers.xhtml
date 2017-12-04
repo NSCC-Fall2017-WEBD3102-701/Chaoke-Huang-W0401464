@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+
+<ui:composition template="layout.xhtml">
+    <ui:define name="myHead">
+        <h:outputStylesheet name="css/all.css"/>
+    </ui:define>
+
+    <ui:define name="heading">Sleeping Well</ui:define>
+
+    <ui:define name="secondPart">
+        <h5 style="color: #005cbf"><h:outputLabel value="#{flash['feedback']}"/></h5>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <ui:repeat value="#{userService.getAllUsers()}" var="u">
+                <hr></hr>
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <h4>First Name: #{u.first_name} Last Name: #{u.last_name}</h4>
+                        <h:commandLink action="#{userService.goInspectedUser(u)}" value="#{u.user_name}"/>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <h:commandButton action="#" value="Delete"
+                                         styleClass="btn btn-info"></h:commandButton>
+                    </div>
+                </div>
+            </ui:repeat>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>
