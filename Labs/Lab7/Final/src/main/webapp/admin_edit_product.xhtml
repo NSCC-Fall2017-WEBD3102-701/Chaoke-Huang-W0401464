@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<ui:composition template="layout.xhtml">
+
+    <ui:define name="heading">Sleeping Well</ui:define>
+
+    <ui:define name="secondPart">
+        <h5 style="color: #bd2130"><h:outputLabel value="#{flash['feedback']}"/></h5>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+        <div class="row">
+
+            <div class="col-2"></div>
+            <div class="card text-white bg-info mb-3 col-8">
+                <div class="card-header">Product ID: <h:outputLabel  value="#{product.id}"/></div>
+                <h:inputHidden value="#{product.id}" />
+                <div class="card-body">
+                    <h5 class="card-title">Name <h:inputText styleClass="form-control col-4" value="#{product.name}" required="true"><f:validateLength
+                            minimum="3" maximum="20"/></h:inputText></h5>
+                    <br/>
+                    <h5 class="card-title">Price <h:inputText styleClass="form-control col-4" value="#{product.price}" required="true"><f:validateDoubleRange
+                            minimum="0.1" /></h:inputText></h5>
+                    <br/>
+                    <h5 class="card-title">Description <h:inputText styleClass="form-control input-lg col-12 " value="#{product.description}" required="true"><f:validateLength
+                            minimum="5" maximum="200" /></h:inputText></h5>
+                    <br/>
+                    <h5 class="card-title">Pic Ref <h:inputText styleClass="form-control col-12" value="#{product.pic_ref}" required="true"><f:validateRegex pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"
+                             /></h:inputText></h5>
+
+                </div>
+            </div>
+            <div class="col-3"></div>
+        </div>
+        <div class="row">
+            <div class="offset-5">
+                <h:commandButton styleClass="btn btn-primary" value="Update" action="#{productService.updateProduct(product)}" />
+            </div>
+        </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+</html>

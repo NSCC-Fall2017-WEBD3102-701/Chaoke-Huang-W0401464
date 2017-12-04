@@ -19,24 +19,29 @@
 
     <ui:define name="content">
         <h:form>
-            <ui:repeat value="#{productService.products}" var="p">
+            <ui:repeat value="#{productService.products}" var="product">
                 <hr></hr>
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                        <h:graphicImage value="#{p.pic_ref}" styleClass="img-responsive" style="height: 8em"/>
+                        <h:graphicImage value="#{product.pic_ref}" styleClass="img-responsive" style="height: 8em"/>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                        <h4><h:commandLink action="#{productService.goProductDetail(p)}">#{p.name}</h:commandLink></h4>
+                        <h4><h:commandLink action="#{productService.goProductDetail(product)}">#{product.name}</h:commandLink></h4>
                     </div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                        $ #{p.price}
+                        $ #{product.price}
                     </div>
-                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                        #{p.description}
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        #{product.description}
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                        <h:commandButton action="#{orderService.addPurchase(p)}" value="Add to Cart"
+                        <h:commandButton action="#{orderService.addPurchase(product)}" value="Add to Cart"
                                          styleClass="btn btn-info"></h:commandButton>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <h:commandButton rendered="#{userService.adminStatus}"
+                                action="admin_edit_product.xhtml" value="Edit" id="edit"
+                                styleClass="btn btn-info" />
                     </div>
                 </div>
             </ui:repeat>

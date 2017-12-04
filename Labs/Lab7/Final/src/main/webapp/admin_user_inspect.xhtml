@@ -28,9 +28,9 @@
                 <div class="card text-white bg-info mb-3 col-6">
                     <div class="card-header">Order ID: #{o.id}</div>
                     <div class="card-body">
-                        <h4 class="card-title">Date: #{o.date} Total: #{o.total}</h4>
+                        <h4 class="card-title">Date: #{o.date} Total: $#{o.total}</h4>
                         <ui:repeat value="#{o.purchases}" var="p">
-                            <p class="card-text">#{p.product.name}X#{p.amount} Subtotal: #{p.subtotal}</p>
+                            <p class="card-text">#{p.product.name} X #{p.amount} Subtotal: $#{p.subtotal}</p>
                         </ui:repeat>
                     </div>
                 </div>

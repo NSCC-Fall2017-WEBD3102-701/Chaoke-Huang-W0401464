@@ -67,6 +67,36 @@ public class ProductDBUtil {
         return product;
     }
 
+
+    public void updateProduct(Product product) {
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+
+        try {
+            myConn = getConnection();
+
+            String sql = "UPDATE products SET name =?, price= ?,description=?,pic_ref=? WHERE (id = ?);";
+
+            myStmt = myConn.prepareStatement(sql);
+            // set params
+            myStmt.setString(1, product.getName());
+            myStmt.setDouble(2, product.getPrice());
+            myStmt.setString(3, product.getDescription());
+            myStmt.setString(4, product.getPic_ref());
+            myStmt.setInt(5, product.getId());
+            myStmt.execute();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(myConn, myStmt);
+
+        }
+    }
+
     public List<Product> getProducts() throws Exception {
 
         List<Product> products = new ArrayList<>();

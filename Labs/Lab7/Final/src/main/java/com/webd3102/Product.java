@@ -2,9 +2,10 @@ package com.webd3102;
 
 import javax.faces.bean.ManagedBean;
 
+
 //@XmlRootElement(name = "product")
-@ManagedBean(name="product")
-public class Product implements Comparable<Product>{
+@ManagedBean(name = "product")
+public class Product implements Comparable<Product> {
     private Integer id;
     private String name;
     private Double price;
@@ -12,9 +13,10 @@ public class Product implements Comparable<Product>{
     private String pic_ref;
 
 
-    public Product() {}
+    public Product() {
+    }
 
-    public Product(Integer id, String name, Double price, String discription,String pic_ref) {
+    public Product(Integer id, String name, Double price, String discription, String pic_ref) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -22,7 +24,8 @@ public class Product implements Comparable<Product>{
         this.pic_ref = pic_ref;
 
     }
-    public Product( String name, Double price, String discription,String pic_ref) {
+
+    public Product(String name, Double price, String discription, String pic_ref) {
         this.name = name;
         this.price = price;
         this.description = discription;

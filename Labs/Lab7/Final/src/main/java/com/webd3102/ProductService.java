@@ -2,14 +2,13 @@ package com.webd3102;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name = "productService")
 @SessionScoped
 public class ProductService {
+
     private static Product currentProduct;
     private List<Product> products = new ArrayList<>();
     private List<Product> searchProducts = new ArrayList<>();
@@ -54,11 +53,8 @@ public class ProductService {
     }
 
     public String goProductDetail(Product product) {
-        //System.out.println(product.getName());
         this.setCurrentProduct(product);
-        // System.out.println(product.getId());
         return "productDetail.xhtml?faces-redirect=true";
-
     }
 
 
@@ -77,6 +73,12 @@ public class ProductService {
         }
         this.setSearchProducts(tempProducts);
         return "sleepSearch.xhtml?faces-redirect=true";
+    }
+
+
+    public String updateProduct(Product product) {
+        productDBUtil.updateProduct(product);
+        return "sleep.xhtml?faces-redirect=true";
     }
 
 }
