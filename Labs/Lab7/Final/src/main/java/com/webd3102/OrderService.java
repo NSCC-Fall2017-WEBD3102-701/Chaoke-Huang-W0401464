@@ -32,6 +32,7 @@ public class OrderService {
         Purchase purchase = new Purchase(product, amount);
         order.getPurchases().add(purchase);
         order.setTotal(order.getTotal() + purchase.getSubtotal());
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", product.getName()+"(s) added to the cart!");
         return "cart.xhtml?faces-redirect=true";
     }
 
@@ -56,6 +57,7 @@ public class OrderService {
         Purchase purchase = new Purchase(product);
         order.getPurchases().add(purchase);
         order.setTotal(order.getTotal() + purchase.getSubtotal());
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", product.getName()+"(s) added to the cart!");
         return "cart.xhtml?faces-redirect=true";
     }
 
@@ -71,6 +73,7 @@ public class OrderService {
         if (purchase.getAmount() - 1 == 0) {
             order.getPurchases().remove(purchase);
             updateTotal();
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", purchase.getProduct().getName()+" has been removed from the cart!");
             return "cart.xhtml";
         }
         purchase.setAmount(purchase.getAmount() - 1);
