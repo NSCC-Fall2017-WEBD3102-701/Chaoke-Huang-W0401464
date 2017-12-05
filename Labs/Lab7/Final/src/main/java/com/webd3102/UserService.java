@@ -148,7 +148,10 @@ public String goInspectedUser(User user){
 
     }
 
+   public User getUserByName(String username){
 
+        return userDBUtil.getUser(username);
+   }
 
 
     public static String generateHash(String input) {

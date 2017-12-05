@@ -2,6 +2,7 @@ package com.webd3102;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,13 @@ public class ProductService {
         return "productDetail.xhtml?faces-redirect=true";
     }
 
+    public String addProduct(Product product){
+
+        productDBUtil.addProduct(product);
+
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", product.getName()+" has been added to the our offerings!!");
+        return "sleep.xhtml?faces-redirect=true";
+    }
 
     public String showSearch() throws Exception {
 //        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
@@ -78,6 +86,7 @@ public class ProductService {
 
     public String updateProduct(Product product) {
         productDBUtil.updateProduct(product);
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", product.getName()+" successfully modified!");
         return "sleep.xhtml?faces-redirect=true";
     }
 

@@ -1,6 +1,7 @@
 package com.webd3102;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.time.LocalDate;
@@ -13,11 +14,11 @@ public class OrderService {
     private Order order;
     private OrderDBUtil orderDBUtil;
 
+
     public OrderService() throws Exception {
         super();
         order = new Order();
         orderDBUtil = OrderDBUtil.getInstance();
-
     }
 
     public Order getOrder() {
@@ -94,23 +95,26 @@ public class OrderService {
         return;
     }
 
-    public String goCheckOut(User user) {
+    public String goCheckOut(User user) throws Exception {
         if (order.getPurchases().size() == 0) {
             FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", "The cart is empty, please enjoy your purchase in Sleeping Well.");
             return "sleep.xhtml:faces-redirect=true";
         }
         order.setDate(LocalDate.now());
-        order.setUser(user);
-
+        User latestuser = new User();
+        latestuser =UserDBUtil.getInstance().getUser(user.getUser_name());
+        order.getUser().setBalance(latestuser.getBalance());
         return "checkout.xhtml:faces-redirect=true";
     }
 
-    public String confirmCheckout() {
+    public String confirmCheckout() throws Exception {
         if (order.getUser().getBalance() < order.getTotal()) {
             FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", "You don't have enough balance to finish the purchase.");
             return "checkout.xhtml:faces-redirect=true";
         } else {
             orderDBUtil.addOrder(order);
+            order.getUser().setBalance(order.getUser().getBalance()-order.getTotal());
+            UserDBUtil.getInstance().updateUser(order.getUser());
             order.resetOrder();
             FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", "Congrats to your purchase!");
             return "sleep.xhtml?faces-redirect=true";

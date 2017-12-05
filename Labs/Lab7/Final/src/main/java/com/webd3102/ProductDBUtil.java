@@ -97,6 +97,33 @@ public class ProductDBUtil {
         }
     }
 
+    public void addProduct(Product product) {
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = getConnection();
+
+            String sql = "INSERT INTO products (name, price, description,pic_ref) values (?,?,?,?)";
+
+            myStmt = myConn.prepareStatement(sql);
+
+            // set params
+            myStmt.setString(1, product.getName());
+            myStmt.setDouble(2, product.getPrice());
+            myStmt.setString(3, product.getDescription());
+            myStmt.setString(4, product.getPic_ref());
+            myStmt.execute();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Product> getProducts() throws Exception {
 
         List<Product> products = new ArrayList<>();

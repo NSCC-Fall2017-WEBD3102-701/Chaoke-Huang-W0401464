@@ -75,7 +75,37 @@ public class UserDBUtil {
         }
     }
 
+public void updateUser(User user){
 
+    Connection myConn = null;
+    PreparedStatement myStmt = null;
+
+    try {
+        myConn = getConnection();
+
+        String sql = "UPDATE users SET balance=? WHERE (id = ?);";
+
+        myStmt = myConn.prepareStatement(sql);
+        // set params
+        myStmt.setDouble(1, user.getBalance());
+        myStmt.setInt(2, user.getId());
+        myStmt.execute();
+
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        close(myConn, myStmt);
+
+    }
+
+
+
+
+
+}
 
     public User getUser(String user_name) {
 

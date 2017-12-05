@@ -19,9 +19,10 @@
 
     <ui:define name="content">
         <div class="row">
-            <h2>Orders for #{userService.inspectedUser.user_name}</h2>
+            <div class="form-control"><h3
+                    style="color: #17a2b8" class="offset-5">Orders for #{userService.inspectedUser.user_name}</h3></div>
         </div>
-
+        <hr></hr>
         <div class="row">
             <ui:repeat value="#{orderService.getOrdersByUser(userService.inspectedUser)}" var="o">
                 <div class="col-3"></div>
