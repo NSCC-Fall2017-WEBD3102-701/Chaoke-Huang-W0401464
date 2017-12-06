@@ -1,28 +1,26 @@
 package com.webd3102;
 
+import oldclasses.HttpClient;
+
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name = "productService")
-@SessionScoped
 public class ProductService {
 
-    private static Product currentProduct;
     private List<Product> products = new ArrayList<>();
-    private List<Product> searchProducts = new ArrayList<>();
-    private String searchStr;
     private HttpClient httpClient = new HttpClient();
     private ProductDBUtil productDBUtil;
-
+    private String searchStr;
 
     public ProductService() throws Exception {
         super();
         productDBUtil = ProductDBUtil.getInstance();
 
     }
+
 
     public String getSearchStr() {
         return searchStr;
@@ -32,72 +30,49 @@ public class ProductService {
         this.searchStr = searchStr;
     }
 
-    public List<Product> getSearchProducts() {
-        return searchProducts;
-    }
 
-    public void setSearchProducts(List<Product> searchProducts) {
-        this.searchProducts = searchProducts;
-    }
-
-    public Product getCurrentProduct() {
-        return currentProduct;
-    }
-
-    public void setCurrentProduct(Product currentProduct) {
-        this.currentProduct = currentProduct;
-    }
+//   // public Product getCurrentProduct() {
+//        return currentProduct;
+//    }
+//
+//    public void setCurrentProduct(Product currentProduct) {
+//        this.currentProduct = currentProduct;
+//    }
 
     public List<Product> getProducts() throws Exception {
         products = productDBUtil.getAliveProducts();
         return products;
     }
 
-    public String goProductDetail(Product product) {
-        this.setCurrentProduct(product);
-        return "productDetail.xhtml?faces-redirect=true";
-    }
+//    public String goProductDetail(Product product) {
+//        this.setCurrentProduct(product);
+//        return "productDetail.xhtml?faces-redirect=true";
+//    }
 
-    public String addProduct(Product product){
+    public String addProduct(Product product) {
 
         productDBUtil.addProduct(product);
 
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", product.getName()+" has been added to the our offerings!!");
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", product.getName() + " has been added to the our offerings!!");
         return "sleep.xhtml?faces-redirect=true";
     }
 
-    public String showSearch() throws Exception {
-//        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-//        String searchStr = ec.getRequestParameterMap().get("search:inputStr");
-        List<Product> lastestProducts = getProducts();
-        List<Product> tempProducts = new ArrayList<>();
-        for (Product product : lastestProducts) {
 
-            if (product.getName().toLowerCase().contains(searchStr.toLowerCase())) {
-
-                tempProducts.add(product);
-            }
-
-        }
-        this.setSearchProducts(tempProducts);
-        return "sleepSearch.xhtml?faces-redirect=true";
-    }
-
-public List<Product> getDeadProducts() throws Exception {
+    public List<Product> getDeadProducts() throws Exception {
 
         return productDBUtil.getDeadProducts();
 
 
-}
+    }
+
     public String updateProduct(Product product) {
         productDBUtil.updateProduct(product);
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", product.getName()+" successfully modified!");
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", product.getName() + " successfully modified!");
         return "sleep.xhtml?faces-redirect=true";
     }
 
 
-
-    public String addBackToPage(Product product){
+    public String addBackToPage(Product product) {
 
         product.setSoftDeleted(0);
         productDBUtil.updateProduct(product);
@@ -105,13 +80,43 @@ public List<Product> getDeadProducts() throws Exception {
         return "sleep.xhtml?faces-redirect=true";
     }
 
-    public String removeFromPage(Product product){
+    public String removeFromPage(Product product) {
 
         product.setSoftDeleted(1);
         productDBUtil.updateProduct(product);
 
         return "sleep.xhtml?faces-redirect=true";
     }
+
+
+    public List<Product> getAliveProductsWithSearch(String searchStr) throws Exception {
+
+        List<Product> allProducts = productDBUtil.getProducts();
+
+        List<Product> searchProducts = new ArrayList<>();
+        for (Product product : allProducts) {
+            if (product.getName().toLowerCase().contains(searchStr.toLowerCase()) && product.getSoftDeleted() == 0) {
+                searchProducts.add(product);
+
+            }
+        }
+        return searchProducts;
+    }
+
+    public List<Product> getDeadProductsWithSearch(String searchStr) throws Exception {
+
+        List<Product> allProducts = productDBUtil.getProducts();
+
+        List<Product> searchProducts = new ArrayList<>();
+        for (Product product : allProducts) {
+            if (product.getName().toLowerCase().contains(searchStr.toLowerCase()) && product.getSoftDeleted() == 1) {
+                searchProducts.add(product);
+
+            }
+        }
+        return searchProducts;
+    }
+
 
 
 

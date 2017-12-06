@@ -18,12 +18,21 @@
     </ui:define>
 
     <ui:define name="content">
-        <h4>Total: $#{orderService.order.total}</h4>
-        <h4>Balance: $#{userService.user.balance}</h4>
-        <h4>Date: <h:outputLabel value="#{orderService.order.date}"></h:outputLabel></h4>
-        <hr></hr>
+        <div class="col-7"></div>
+        <div class="card text-white bg-info mb-3 col-6">
+            <div class="card-header">#{orderService.order.date}</div>
+            <div class="card-body">
+                <h4 class="card-title">Total: $#{orderService.order.total}</h4>
+               <h4 class="card-title"> Balance: $#{userService.user.balance}</h4>
+            </div>
+        </div>
+        <div class="col-3"></div>
+
+
+
+
         <h:form>
-            <h:commandButton value="Condirm" action="#{orderService.confirmCheckout()}"/>
+            <h:commandButton styleClass="btn btn-primary" value="Condirm" action="#{orderService.confirmCheckout()}"/>
         </h:form>
     </ui:define>
 

@@ -10,23 +10,20 @@
     <ui:define name="myHead">
         <h:outputStylesheet name="css/all.css"/>
     </ui:define>
-
-    <ui:define name="heading">Sleeping Well</ui:define>
-
     <ui:define name="secondPart">
         <h5 style="color: #005cbf"><h:outputLabel value="#{flash['feedback']}"/></h5>
     </ui:define>
 
     <ui:define name="content">
         <h:form>
-            <ui:repeat value="#{productService.products}" var="product">
+            <ui:repeat value="#{productService.getAliveProductsWithSearch(productService.searchStr)}" var="product">
                 <hr></hr>
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                         <h:graphicImage value="#{product.pic_ref}" styleClass="img-responsive" style="height: 8em"/>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                        <h4><h:commandLink action="#{productService.goProductDetail(product)}">#{product.name}</h:commandLink></h4>
+                        <h4><h:commandLink action="productDetail.xhtml">#{product.name}</h:commandLink></h4>
                     </div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                         $ #{product.price}
@@ -41,10 +38,10 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                         <h:commandButton rendered="#{userService.adminStatus}"
                                 action="admin_edit_product.xhtml" value="Edit" id="edit"
-                                styleClass="btn btn-info" />&nbsp;
+                                styleClass="btn btn-warning" />&nbsp;
                         <h:commandButton rendered="#{userService.adminStatus}"
                                          action="#{productService.removeFromPage(product)}" value="Remove"
-                                         styleClass="btn btn-info" />
+                                         styleClass="btn btn-danger" />
                     </div>
                 </div>
             </ui:repeat>
@@ -52,14 +49,14 @@
         <h:form rendered="#{userService.adminStatus}">
             <hr/>
             <h4>Removed Products</h4>
-            <ui:repeat value="#{productService.getDeadProducts()}" var="deadProduct">
+            <ui:repeat value="#{productService.getDeadProductsWithSearch(productService.searchStr)}" var="deadProduct">
                 <hr></hr>
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                         <h:graphicImage value="#{deadProduct.pic_ref}" styleClass="img-responsive" style="height: 8em"/>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                        <h4><h:commandLink action="#{productService.goProductDetail(deadProduct)}">#{deadProduct.name}</h:commandLink></h4>
+                        <h4>#{deadProduct.name}</h4>
                     </div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                         $ #{deadProduct.price}

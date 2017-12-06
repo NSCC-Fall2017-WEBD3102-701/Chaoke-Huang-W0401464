@@ -8,12 +8,12 @@ import javax.servlet.http.HttpSession;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 @ManagedBean(name = "userService")
 @SessionScoped
 public class UserService {
+    public static final String SALT = "ck-salt";
     User user;
     String longinUsername;
     boolean isAuthenticated;
@@ -21,6 +21,37 @@ public class UserService {
     User inspectedUser;
     UserDBUtil userDBUtil;
     boolean adminStatus;
+    //private String searchStr;
+
+    public UserService() throws Exception {
+        super();
+        user = new User();
+        inspectedUser = new User();
+        user.setUser_name("Guest");
+        userDBUtil = UserDBUtil.getInstance();
+
+
+    }
+
+    public static String generateHash(String input) {
+        StringBuilder hash = new StringBuilder();
+
+        try {
+            MessageDigest sha = MessageDigest.getInstance("SHA-256");
+            byte[] hashedBytes = sha.digest(input.getBytes());
+            char[] digits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                    'a', 'b', 'c', 'd', 'e', 'f'};
+            for (int idx = 0; idx < hashedBytes.length; ++idx) {
+                byte b = hashedBytes[idx];
+                hash.append(digits[(b & 0xf0) >> 4]);
+                hash.append(digits[b & 0x0f]);
+            }
+        } catch (NoSuchAlgorithmException e) {
+            // handle error here.
+        }
+
+        return hash.toString();
+    }
 
     public User getInspectedUser() {
         return inspectedUser;
@@ -30,7 +61,6 @@ public class UserService {
         this.inspectedUser = inspectedUser;
     }
 
-    public static final String SALT = "ck-salt";
     public boolean isAuthenticated() {
         return isAuthenticated;
     }
@@ -38,7 +68,6 @@ public class UserService {
     public void setAuthenticated(boolean authenticated) {
         isAuthenticated = authenticated;
     }
-
 
     public boolean isAdminStatus() {
         return adminStatus;
@@ -56,6 +85,14 @@ public class UserService {
         this.user = user;
     }
 
+//    public String getSearchStr() {
+//        return searchStr;
+//    }
+//
+//    public void setSearchStr(String searchStr) {
+//        this.searchStr = searchStr;
+//    }
+
     public String getLonginUsername() {
         return longinUsername;
     }
@@ -72,15 +109,6 @@ public class UserService {
         this.longinPassword = longinPassword;
     }
 
-    public UserService() throws Exception {
-        super();
-        user = new User();
-        inspectedUser = new User();
-        user.setUser_name("Guest");
-        userDBUtil = UserDBUtil.getInstance();
-
-
-    }
     public void signup(User user) {
         String saltedPassword = SALT + user.getPassword();
         String hashedPassword = generateHash(saltedPassword);
@@ -89,15 +117,17 @@ public class UserService {
 
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         String isAdmin = ec.getRequestParameterMap().get("registerForm:iSAdmin");
-        userDBUtil.addUser(user,isAdmin);
+        userDBUtil.addUser(user, isAdmin);
 
         return;
     }
-public String goInspectedUser(User user){
+
+    public String goInspectedUser(User user) {
         this.inspectedUser = user;
         return "admin_user_inspect.xhtml?faces-redirect=true";
 
-}
+    }
+
     public String login(String username, String password) {
         User tempUser = userDBUtil.getUser(username);
 
@@ -106,26 +136,26 @@ public String goInspectedUser(User user){
         String saltedPassword = SALT + password;
         String hashedPassword = generateHash(saltedPassword);
 
-        if(tempUser.getPassword().equals(hashedPassword)){
+        if (tempUser.getPassword().equals(hashedPassword)) {
             this.setAuthenticated(true);
             this.setUser(tempUser);
             this.setAdminStatus(userDBUtil.checkAdmin(user));
-            if(this.isAdminStatus()){
-                FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback","Welcome Administrator, "+user.getUser_name()+"!");
+            if (this.isAdminStatus()) {
+                FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", "Welcome Administrator, " + user.getUser_name() + "!");
                 return "admin";
             }
-        }else{
+        } else {
             this.setAuthenticated(false);
-            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback","User name and password don't match, please try again.");
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", "User name and password don't match, please try again.");
             return "login.xhtml?faces-redirect=true";
         }
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback","Welcome to sleeping well, "+user.getUser_name()+"!");
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", "Welcome to sleeping well, " + user.getUser_name() + "!");
         return "normal";
     }
 
-    public String logout(){
+    public String logout() {
 
-        if(user.getUser_name().equals("Guest")){
+        if (user.getUser_name().equals("Guest")) {
 
             return "login.xhtml?faces-redirect=true";
         }
@@ -133,7 +163,7 @@ public String goInspectedUser(User user){
         HttpSession Session = (HttpSession) fc.getExternalContext()
                 .getSession(false);
         Session.invalidate();
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback","You have logged out.");
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", "You have logged out.");
         return "login.xhtml?faces-redirect=true";
     }
 
@@ -148,35 +178,15 @@ public String goInspectedUser(User user){
 
     }
 
-   public User getUserByName(String username){
+    public User getUserByName(String username) {
 
         return userDBUtil.getUser(username);
-   }
-
-
-    public static String generateHash(String input) {
-        StringBuilder hash = new StringBuilder();
-
-        try {
-            MessageDigest sha = MessageDigest.getInstance("SHA-256");
-            byte[] hashedBytes = sha.digest(input.getBytes());
-            char[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-                    'a', 'b', 'c', 'd', 'e', 'f' };
-            for (int idx = 0; idx < hashedBytes.length; ++idx) {
-                byte b = hashedBytes[idx];
-                hash.append(digits[(b & 0xf0) >> 4]);
-                hash.append(digits[b & 0x0f]);
-            }
-        } catch (NoSuchAlgorithmException e) {
-            // handle error here.
-        }
-
-        return hash.toString();
     }
-public String goLogin(){
 
-        return"login.xhtml?faces-redirect=true";
-}
+    public String goLogin() {
+
+        return "login.xhtml?faces-redirect=true";
+    }
 
 
 }

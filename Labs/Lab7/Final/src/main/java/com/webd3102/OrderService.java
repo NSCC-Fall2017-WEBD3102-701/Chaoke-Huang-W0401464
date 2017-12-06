@@ -1,9 +1,12 @@
 package com.webd3102;
 
+import com.google.gson.Gson;
+import okhttp3.*;
+
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +16,7 @@ import java.util.List;
 public class OrderService {
     private Order order;
     private OrderDBUtil orderDBUtil;
+    private OkHttpClient client = new OkHttpClient();
 
 
     public OrderService() throws Exception {
@@ -33,7 +37,7 @@ public class OrderService {
         Purchase purchase = new Purchase(product, amount);
         order.getPurchases().add(purchase);
         order.setTotal(order.getTotal() + purchase.getSubtotal());
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", product.getName()+"(s) added to the cart!");
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", product.getName() + "(s) added to the cart!");
         return "cart.xhtml?faces-redirect=true";
     }
 
@@ -58,7 +62,7 @@ public class OrderService {
         Purchase purchase = new Purchase(product);
         order.getPurchases().add(purchase);
         order.setTotal(order.getTotal() + purchase.getSubtotal());
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", product.getName()+"(s) added to the cart!");
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", product.getName() + "(s) added to the cart!");
         return "cart.xhtml?faces-redirect=true";
     }
 
@@ -74,7 +78,7 @@ public class OrderService {
         if (purchase.getAmount() - 1 == 0) {
             order.getPurchases().remove(purchase);
             updateTotal();
-            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", purchase.getProduct().getName()+" has been removed from the cart!");
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", purchase.getProduct().getName() + " has been removed from the cart!");
             return "cart.xhtml";
         }
         purchase.setAmount(purchase.getAmount() - 1);
@@ -102,7 +106,7 @@ public class OrderService {
         }
         order.setDate(LocalDate.now());
         User latestuser = new User();
-        latestuser =UserDBUtil.getInstance().getUser(user.getUser_name());
+        latestuser = UserDBUtil.getInstance().getUser(user.getUser_name());
         order.getUser().setBalance(latestuser.getBalance());
         return "checkout.xhtml:faces-redirect=true";
     }
@@ -113,11 +117,59 @@ public class OrderService {
             return "checkout.xhtml:faces-redirect=true";
         } else {
             orderDBUtil.addOrder(order);
-            order.getUser().setBalance(order.getUser().getBalance()-order.getTotal());
+            SimplifiedOrder simplifiedOrder = converSimplifiiedOrder(order);
+
+            PostRequest postAdd = new PostRequest();
+            Gson gson = new Gson();
+            String orderJson = gson.toJson(simplifiedOrder);
+            postAdd.post("http://localhost:8000/myapp/show",orderJson);
+
+            order.getUser().setBalance(order.getUser().getBalance() - order.getTotal());
             UserDBUtil.getInstance().updateUser(order.getUser());
             order.resetOrder();
             FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", "Congrats to your purchase!");
             return "sleep.xhtml?faces-redirect=true";
         }
     }
+
+
+    public SimplifiedOrder converSimplifiiedOrder(Order order) {
+        List<String[]> simplePurchases = new ArrayList<>();
+        for (Purchase pur : order.getPurchases()) {
+            String[] simplePurcase = new String[4];
+
+
+            simplePurcase[0] = pur.getProduct().getName();
+            simplePurcase[1] = Integer.toString(pur.getAmount());
+            simplePurcase[2] = Double.toString(pur.getSubtotal());
+            simplePurcase[3] = Double.toString(pur.getPrice());
+
+            simplePurchases.add(simplePurcase);
+
+        }
+
+        SimplifiedOrder simplifiedOrder = new SimplifiedOrder(order.getId(), order.getUser().getUser_name(), order.getDate(), simplePurchases);
+        return simplifiedOrder;
+
+
+    }
+
+
+    private class PostRequest {
+        public final MediaType JSON
+                = MediaType.parse("application/json; charset=utf-8");
+
+        String post(String url, String json) throws IOException {
+            RequestBody body = RequestBody.create(JSON, json);
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+            try (Response response = client.newCall(request).execute()) {
+                return response.body().string();
+            }
+        }
+    }
+
+
 }

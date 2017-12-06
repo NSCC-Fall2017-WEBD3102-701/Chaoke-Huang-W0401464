@@ -10,23 +10,27 @@
     <ui:define name="myHead">
         <h:outputStylesheet name="css/all.css"/>
     </ui:define>
-
-    <ui:define name="heading">Sleeping Well</ui:define>
-
     <ui:define name="secondPart">
         <h5 style="color: #005cbf"><h:outputLabel value="#{flash['feedback']}"/></h5>
     </ui:define>
 
     <ui:define name="content">
+        <div class="page-header"><h3 class="text-center form-control">User Management</h3></div>
         <h:form>
             <ui:repeat value="#{userService.getAllUsers()}" var="u">
                 <hr></hr>
                 <div class="row">
-                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                        <h4><h:commandLink action="#{userService.goInspectedUser(u)}" value="#{u.user_name}"/></h4>
-                        <h5>First Name: #{u.first_name}</h5>
-                        <h5>Last Name: #{u.last_name}</h5>
+                    <div class="col-3"></div>
+                    <div class="card text-white bg-info mb-3 col-6">
+                        <div class="card-header">ID: #{u.id}</div>
+                        <div class="card-body">
+                            <h4 class="card-title"><h:commandLink action="#{userService.goInspectedUser(u)}"
+                                                                  value="#{u.user_name}"/></h4>
+                            <h5 class="card-title">First Name: #{u.first_name}</h5>
+                            <h5 class="card-title">Last Name: #{u.last_name}"</h5>
+                        </div>
                     </div>
+                    <div class="col-3"></div>
                 </div>
             </ui:repeat>
         </h:form>

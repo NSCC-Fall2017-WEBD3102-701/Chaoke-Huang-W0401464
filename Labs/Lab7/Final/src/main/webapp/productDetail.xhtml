@@ -17,19 +17,19 @@
     <ui:define name="content">
 
         <div class="row">
-            <h3 class="offset-4 col-4">#{productService.currentProduct.name}</h3>
+            <h3 class="offset-4 col-4">#{product.name}</h3>
         </div>
 
         <div class="row">
             <div style="height: 18em;" class="offset-3 col-2">
-                <h:graphicImage value="#{productService.currentProduct.pic_ref}" style="max-height: 18em;"/>
+                <h:graphicImage value="#{product.pic_ref}" style="max-height: 18em;"/>
             </div>
         </div>
         <div class="row">
-            <p class="offset-3 col-4">#{productService.currentProduct.description}</p>
+            <p class="offset-3 col-4">#{product.description}</p>
         </div>
         <div class="row">
-            <h4 class="offset-4 col-4">Price: $#{productService.currentProduct.price}</h4>
+            <h4 class="offset-4 col-4">Price: $#{product.price}</h4>
         </div>
         <br></br>
         <div class="row">
@@ -49,7 +49,14 @@
         <div class="row">
             <div class="offset-4">
                 <h:form method="post" action="#">
-                    <h:commandButton action="#{orderService.addPurchase(productService.currentProduct,purchase.amount)}" value="Add to Cart" styleClass="btn btn-primary"/>
+
+                    <h:inputHidden value="#{product.id}" />
+                    <h:inputHidden value="#{product.name}" />
+                    <h:inputHidden value="#{product.price}" />
+                    <h:inputHidden value="#{product.description}" />
+                    <h:inputHidden value="#{product.pic_ref}" />
+                    <h:inputHidden value="#{product.softDeleted}" />
+                    <h:commandButton action="#{orderService.addPurchase(product,purchase.amount)}" value="Add to Cart" styleClass="btn btn-primary"/>
                 </h:form>
             </div>
         </div>
