@@ -22,7 +22,7 @@
             <div class="form-control"><h3
                     style="color: #17a2b8" class="offset-5">Orders for #{userService.inspectedUser.user_name}</h3></div>
         </div>
-        <hr></hr>
+        <br></br>
         <div class="row">
             <ui:repeat value="#{orderService.getOrdersByUser(userService.inspectedUser)}" var="o">
                 <div class="col-3"></div>

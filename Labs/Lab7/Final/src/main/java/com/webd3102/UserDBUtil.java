@@ -75,37 +75,33 @@ public class UserDBUtil {
         }
     }
 
-public void updateUser(User user){
+    public void updateUser(User user) {
 
-    Connection myConn = null;
-    PreparedStatement myStmt = null;
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
 
-    try {
-        myConn = getConnection();
+        try {
+            myConn = getConnection();
 
-        String sql = "UPDATE users SET balance=? WHERE (id = ?);";
+            String sql = "UPDATE users SET balance=? WHERE (id = ?);";
 
-        myStmt = myConn.prepareStatement(sql);
-        // set params
-        myStmt.setDouble(1, user.getBalance());
-        myStmt.setInt(2, user.getId());
-        myStmt.execute();
+            myStmt = myConn.prepareStatement(sql);
+            // set params
+            myStmt.setDouble(1, user.getBalance());
+            myStmt.setInt(2, user.getId());
+            myStmt.execute();
 
 
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } catch (Exception e) {
-        e.printStackTrace();
-    } finally {
-        close(myConn, myStmt);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(myConn, myStmt);
+
+        }
 
     }
-
-
-
-
-
-}
 
     public User getUser(String user_name) {
 
@@ -124,7 +120,7 @@ public void updateUser(User user){
 
 
             // retrieve data from result set row
-            while(myRs.next()) {
+            while (myRs.next()) {
                 int id = myRs.getInt("id");
                 String first_name = myRs.getString("first_name");
                 String last_name = myRs.getString("last_name");
@@ -145,7 +141,7 @@ public void updateUser(User user){
         return user;
     }
 
-    public boolean checkAdmin(User user){
+    public boolean checkAdmin(User user) {
         Connection myConn = null;
         PreparedStatement myStmt = null;
         ResultSet myRs = null;
@@ -159,7 +155,7 @@ public void updateUser(User user){
 
 
             // retrieve data from result set row
-            while(myRs.next()) {
+            while (myRs.next()) {
                 return true;
             }
         } catch (SQLException e) {
@@ -174,9 +170,7 @@ public void updateUser(User user){
     }
 
 
-
-
-    public void addUser(User user,String isAdmin) {
+    public void addUser(User user, String isAdmin) {
         Connection myConn = null;
         PreparedStatement myStmt = null;
         ResultSet myRs = null;
@@ -196,8 +190,8 @@ public void updateUser(User user){
             myStmt.setString(5, user.getPassword());
             myStmt.setDouble(6, 1000);
             myStmt.execute();
-            if(isAdmin.equals("on")) {
-               int id = getUser(user.getUser_name()).getId();
+            if (isAdmin.equals("on")) {
+                int id = getUser(user.getUser_name()).getId();
                 sql = "INSERT INTO role_user (role_id,user_id) values (1,?)";
                 myStmt = myConn.prepareStatement(sql);
                 myStmt.setInt(1, id);

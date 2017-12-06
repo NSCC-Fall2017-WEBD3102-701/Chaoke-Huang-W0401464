@@ -41,16 +41,47 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                         <h:commandButton rendered="#{userService.adminStatus}"
                                 action="admin_edit_product.xhtml" value="Edit" id="edit"
-                                styleClass="btn btn-info" />
+                                styleClass="btn btn-info" />&nbsp;
+                        <h:commandButton rendered="#{userService.adminStatus}"
+                                         action="#{productService.removeFromPage(product)}" value="Remove"
+                                         styleClass="btn btn-info" />
                     </div>
                 </div>
             </ui:repeat>
         </h:form>
-        <hr/>
-        <div class="row">
+        <h:form rendered="#{userService.adminStatus}">
+            <hr/>
+            <h4>Removed Products</h4>
+            <ui:repeat value="#{productService.getDeadProducts()}" var="deadProduct">
+                <hr></hr>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <h:graphicImage value="#{deadProduct.pic_ref}" styleClass="img-responsive" style="height: 8em"/>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <h4><h:commandLink action="#{productService.goProductDetail(deadProduct)}">#{deadProduct.name}</h:commandLink></h4>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        $ #{deadProduct.price}
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        #{deadProduct.description}
+                    </div>
+
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <h:commandButton rendered="#{userService.adminStatus}"
+                                         action="#{productService.addBackToPage(deadProduct)}" value="Add Back"
+                                         styleClass="btn btn-info" />
+                    </div>
+                </div>
+            </ui:repeat>
+        </h:form>
+
+
+        <div class="row" >
             <div class="col-5"></div>
-            <h:form>
-                <h:commandButton action="admin_add_product.xhtml" styleClass="btn btn-info" value="Add Product" />
+            <h:form rendered="#{userService.adminStatus}">
+                <h:commandButton action="admin_add_product.xhtml?faces-redirect=true" styleClass="btn btn-info" value="Add Product" />
             </h:form>
         </div>
     </ui:define>

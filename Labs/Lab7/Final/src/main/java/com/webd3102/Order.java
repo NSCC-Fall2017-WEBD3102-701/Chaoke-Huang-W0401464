@@ -1,6 +1,7 @@
 package com.webd3102;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ public class Order {
     private List<Purchase> purchases = new ArrayList<>();
     private User user;
     private double total = 0;
+    @ManagedProperty("#{userService}")
+    private UserService userService;
 
     public Order() {
         super();

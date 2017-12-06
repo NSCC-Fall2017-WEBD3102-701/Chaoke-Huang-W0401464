@@ -11,17 +11,26 @@ public class Product implements Comparable<Product> {
     private Double price;
     private String description;
     private String pic_ref;
+    private int softDeleted;
 
+    public int getSoftDeleted() {
+        return softDeleted;
+    }
+
+    public void setSoftDeleted(int softDeleted) {
+        this.softDeleted = softDeleted;
+    }
 
     public Product() {
     }
 
-    public Product(Integer id, String name, Double price, String discription, String pic_ref) {
+    public Product(Integer id, String name, Double price, String discription, String pic_ref,int softDeleted) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = discription;
         this.pic_ref = pic_ref;
+        this.softDeleted=softDeleted;
 
     }
 

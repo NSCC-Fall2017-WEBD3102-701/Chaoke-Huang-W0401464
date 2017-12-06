@@ -49,7 +49,7 @@ public class ProductService {
     }
 
     public List<Product> getProducts() throws Exception {
-        products = productDBUtil.getProducts();
+        products = productDBUtil.getAliveProducts();
         return products;
     }
 
@@ -83,11 +83,36 @@ public class ProductService {
         return "sleepSearch.xhtml?faces-redirect=true";
     }
 
+public List<Product> getDeadProducts() throws Exception {
 
+        return productDBUtil.getDeadProducts();
+
+
+}
     public String updateProduct(Product product) {
         productDBUtil.updateProduct(product);
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("feedback", product.getName()+" successfully modified!");
         return "sleep.xhtml?faces-redirect=true";
     }
+
+
+
+    public String addBackToPage(Product product){
+
+        product.setSoftDeleted(0);
+        productDBUtil.updateProduct(product);
+
+        return "sleep.xhtml?faces-redirect=true";
+    }
+
+    public String removeFromPage(Product product){
+
+        product.setSoftDeleted(1);
+        productDBUtil.updateProduct(product);
+
+        return "sleep.xhtml?faces-redirect=true";
+    }
+
+
 
 }

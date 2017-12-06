@@ -23,12 +23,9 @@
                 <hr></hr>
                 <div class="row">
                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                        <h4>First Name: #{u.first_name} Last Name: #{u.last_name}</h4>
-                        <h:commandLink action="#{userService.goInspectedUser(u)}" value="#{u.user_name}"/>
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                        <h:commandButton action="#" value="Delete"
-                                         styleClass="btn btn-info"></h:commandButton>
+                        <h4><h:commandLink action="#{userService.goInspectedUser(u)}" value="#{u.user_name}"/></h4>
+                        <h5>First Name: #{u.first_name}</h5>
+                        <h5>Last Name: #{u.last_name}</h5>
                     </div>
                 </div>
             </ui:repeat>

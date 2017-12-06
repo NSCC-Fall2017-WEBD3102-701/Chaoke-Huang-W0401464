@@ -75,7 +75,7 @@ public class ProductDBUtil {
         try {
             myConn = getConnection();
 
-            String sql = "UPDATE products SET name =?, price= ?,description=?,pic_ref=? WHERE (id = ?);";
+            String sql = "UPDATE products SET name =?, price= ?,description=?,pic_ref=?,softDeleted=? WHERE (id = ?);";
 
             myStmt = myConn.prepareStatement(sql);
             // set params
@@ -83,7 +83,9 @@ public class ProductDBUtil {
             myStmt.setDouble(2, product.getPrice());
             myStmt.setString(3, product.getDescription());
             myStmt.setString(4, product.getPic_ref());
-            myStmt.setInt(5, product.getId());
+            myStmt.setInt(5, product.getSoftDeleted());
+            myStmt.setInt(6, product.getId());
+
             myStmt.execute();
 
 
@@ -149,8 +151,9 @@ public class ProductDBUtil {
                 String description = myRs.getString("description");
                 Double price = myRs.getDouble("price");
                 String pic_ref = myRs.getString("pic_ref");
+                int softDeleted = myRs.getInt("softDeleted");
 
-                Product temp = new Product(id, name, price, description, pic_ref);
+                Product temp = new Product(id, name, price, description, pic_ref,softDeleted);
 
 
                 products.add(temp);
@@ -162,6 +165,85 @@ public class ProductDBUtil {
         }
     }
 
+
+
+
+    public List<Product> getAliveProducts() throws Exception {
+
+        List<Product> products = new ArrayList<>();
+
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+
+        try {
+            myConn = getConnection();
+
+            String sql = "select * from products where softDeleted = 0 order by id";
+
+            myStmt = myConn.createStatement();
+
+            myRs = myStmt.executeQuery(sql);
+
+
+            while (myRs.next()) {
+
+                int id = myRs.getInt("id");
+                String name = myRs.getString("name");
+                String description = myRs.getString("description");
+                Double price = myRs.getDouble("price");
+                String pic_ref = myRs.getString("pic_ref");
+                int softDeleted = myRs.getInt("softDeleted");
+
+                Product temp = new Product(id, name, price, description, pic_ref,softDeleted);
+
+                products.add(temp);
+            }
+
+            return products;
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+    }
+
+
+    public List<Product> getDeadProducts() throws Exception {
+
+        List<Product> products = new ArrayList<>();
+
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+
+        try {
+            myConn = getConnection();
+
+            String sql = "select * from products where softDeleted = 1 order by id";
+
+            myStmt = myConn.createStatement();
+
+            myRs = myStmt.executeQuery(sql);
+
+
+            while (myRs.next()) {
+
+                int id = myRs.getInt("id");
+                String name = myRs.getString("name");
+                String description = myRs.getString("description");
+                Double price = myRs.getDouble("price");
+                String pic_ref = myRs.getString("pic_ref");
+                int softDeleted = myRs.getInt("softDeleted");
+
+                Product temp = new Product(id, name, price, description, pic_ref,softDeleted);
+
+                products.add(temp);
+            }
+
+            return products;
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+    }
 
     private Connection getConnection() throws Exception {
 
