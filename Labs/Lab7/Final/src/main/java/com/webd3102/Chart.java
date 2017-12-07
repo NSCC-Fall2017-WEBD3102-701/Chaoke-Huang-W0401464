@@ -15,9 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @ManagedBean(name = "chart")
-@SessionScoped
 public class Chart implements Serializable {
-
     Date before;
     Date after;
     Map<String, String> dataMap;

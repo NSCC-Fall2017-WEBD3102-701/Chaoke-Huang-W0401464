@@ -1,6 +1,5 @@
 package com.webd3102;
 
-import oldclasses.HttpClient;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -31,23 +30,12 @@ public class ProductService {
     }
 
 
-//   // public Product getCurrentProduct() {
-//        return currentProduct;
-//    }
-//
-//    public void setCurrentProduct(Product currentProduct) {
-//        this.currentProduct = currentProduct;
-//    }
 
     public List<Product> getProducts() throws Exception {
         products = productDBUtil.getAliveProducts();
         return products;
     }
 
-//    public String goProductDetail(Product product) {
-//        this.setCurrentProduct(product);
-//        return "productDetail.xhtml?faces-redirect=true";
-//    }
 
     public String addProduct(Product product) {
 
