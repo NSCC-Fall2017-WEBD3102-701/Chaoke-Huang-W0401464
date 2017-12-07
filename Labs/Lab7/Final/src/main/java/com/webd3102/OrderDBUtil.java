@@ -7,6 +7,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,6 +145,52 @@ public class OrderDBUtil {
                 Order order = new Order();
                 order.setId(myRs.getInt("id"));
                 order.setUser(user);
+                order.setTotal(myRs.getDouble("total"));
+                order.setDate(myRs.getDate("created_at").toLocalDate());
+                order.setPurchases(PurchaseDBUtil.getInstance().getPurchasesByOrderId(order.getId()));
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+        return orders;
+
+
+
+    }
+
+
+
+
+    public List<Order> getOrderByDate(LocalDate before, LocalDate after){
+
+        List<Order> orders = new ArrayList<>();
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+
+
+        try {
+
+            myConn = getConnection();
+
+            String sql = "select * from orders where (created_at BETWEEN ? AND ?)";
+
+            myStmt = myConn.prepareStatement(sql);
+            myStmt.setDate(1, Date.valueOf(after));
+            myStmt.setDate(2, Date.valueOf(before));
+            myRs = myStmt.executeQuery();
+
+            // retrieve data from result set row
+            while (myRs.next()) {
+                Order order = new Order();
+                order.setId(myRs.getInt("id"));
+                order.setUser(UserDBUtil.getInstance().getUserById(myRs.getInt("user_id")));
                 order.setTotal(myRs.getDouble("total"));
                 order.setDate(myRs.getDate("created_at").toLocalDate());
                 order.setPurchases(PurchaseDBUtil.getInstance().getPurchasesByOrderId(order.getId()));

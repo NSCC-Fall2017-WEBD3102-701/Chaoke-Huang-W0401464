@@ -51,7 +51,6 @@ public class OrderService {
 
     }
 
-
     public void subPurchase(Purchase purchase) {
         order.getPurchases().remove(purchase);
         order.setTotal(order.getTotal() - purchase.getSubtotal());
@@ -117,12 +116,12 @@ public class OrderService {
             return "checkout.xhtml:faces-redirect=true";
         } else {
             orderDBUtil.addOrder(order);
-            SimplifiedOrder simplifiedOrder = converSimplifiiedOrder(order);
+            SimplifiedOrder simplifiedOrder = converSimplifiedOrder(order);
 
             PostRequest postAdd = new PostRequest();
             Gson gson = new Gson();
             String orderJson = gson.toJson(simplifiedOrder);
-            postAdd.post("http://localhost:8000/myapp/show",orderJson);
+            postAdd.post("http://localhost:8000/myapp/show", orderJson);
 
             order.getUser().setBalance(order.getUser().getBalance() - order.getTotal());
             UserDBUtil.getInstance().updateUser(order.getUser());
@@ -133,12 +132,10 @@ public class OrderService {
     }
 
 
-    public SimplifiedOrder converSimplifiiedOrder(Order order) {
+    public SimplifiedOrder converSimplifiedOrder(Order order) {
         List<String[]> simplePurchases = new ArrayList<>();
         for (Purchase pur : order.getPurchases()) {
             String[] simplePurcase = new String[4];
-
-
             simplePurcase[0] = pur.getProduct().getName();
             simplePurcase[1] = Integer.toString(pur.getAmount());
             simplePurcase[2] = Double.toString(pur.getSubtotal());

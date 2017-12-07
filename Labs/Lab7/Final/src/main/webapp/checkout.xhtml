@@ -23,7 +23,7 @@
             <div class="card-header">#{orderService.order.date}</div>
             <div class="card-body">
                 <h4 class="card-title">Total: $#{orderService.order.total}</h4>
-               <h4 class="card-title"> Balance: $#{userService.user.balance}</h4>
+               <h4 style="color:#{(userService.user.balance>=orderService.order.total)?'blue':'red'}" class="card-title"> Balance: $#{userService.user.balance}</h4>
             </div>
         </div>
         <div class="col-3"></div>

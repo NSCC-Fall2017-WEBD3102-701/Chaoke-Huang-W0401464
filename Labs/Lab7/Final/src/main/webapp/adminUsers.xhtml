@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
 >
 
 <ui:composition template="layout.xhtml">
@@ -12,13 +13,23 @@
     </ui:define>
     <ui:define name="secondPart">
         <h5 style="color: #005cbf"><h:outputLabel value="#{flash['feedback']}"/></h5>
+        <h:form>
+            <p:outputLabel for="before" value="Before "/>
+            <p:calendar id="before" value="#{chart.before}" pattern="yyyy-MM-dd" effect="fold" required="true" requiredMessage="Please input the date"/>
+            <p:outputLabel for="after" value="After "/>
+            <p:calendar id="after" value="#{chart.after}" pattern="yyyy-MM-dd" effect="fold" required="true" requiredMessage="Please input the date" />
+
+            <h:commandButton action="#{chart.createPieModel()}" value="Report"/></h:form>
     </ui:define>
 
     <ui:define name="content">
-        <div class="page-header"><h3 class="text-center form-control">User Management</h3></div>
+        <div class="row">
+            <div class="form-control"><h3
+                    style="color: #17a2b8" class="offset-5">Users Management</h3></div>
+        </div>
+        <br></br>
         <h:form>
             <ui:repeat value="#{userService.getAllUsers()}" var="u">
-                <hr></hr>
                 <div class="row">
                     <div class="col-3"></div>
                     <div class="card text-white bg-info mb-3 col-6">

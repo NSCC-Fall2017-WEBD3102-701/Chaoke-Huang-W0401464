@@ -141,6 +141,48 @@ public class UserDBUtil {
         return user;
     }
 
+
+    public User getUserById(int userid) {
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+        User user = new User();
+        try {
+            myConn = getConnection();
+
+            String sql = "select * from users where (id = ?)";
+
+            myStmt = myConn.prepareStatement(sql);
+            myStmt.setInt(1, userid);
+            myRs = myStmt.executeQuery();
+
+
+            // retrieve data from result set row
+            while (myRs.next()) {
+                int id = myRs.getInt("id");
+                String first_name = myRs.getString("first_name");
+                String last_name = myRs.getString("last_name");
+                String user_name = myRs.getString("user_name");
+                Double balance = myRs.getDouble("balance");
+                String email = myRs.getString("email");
+                String password = myRs.getString("password");
+
+                // create new actor object
+                user = new User(id, first_name, last_name, user_name, balance, email, password);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+        return user;
+    }
+
+
+
     public boolean checkAdmin(User user) {
         Connection myConn = null;
         PreparedStatement myStmt = null;
