@@ -1,6 +1,4 @@
-package com.webd3102;
-
-import javax.xml.bind.annotation.XmlRootElement;
+package com.webd3102.Old;
 
 //@XmlRootElement(name = "invoice")
 public class Invoice implements Comparable<Invoice>{
