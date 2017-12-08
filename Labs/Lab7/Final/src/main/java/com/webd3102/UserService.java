@@ -109,17 +109,17 @@ public class UserService {
         this.longinPassword = longinPassword;
     }
 
-    public void signup(User user) {
+    public String signup(User user) {
         String saltedPassword = SALT + user.getPassword();
         String hashedPassword = generateHash(saltedPassword);
-        System.out.println("hashed:" + hashedPassword);
         user.setPassword(hashedPassword);
 
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         String isAdmin = ec.getRequestParameterMap().get("registerForm:iSAdmin");
         userDBUtil.addUser(user, isAdmin);
+        ec.getFlash().put("feedback", "New user: " + user.getUser_name() + " has been successfully registered!");
 
-        return;
+        return "adminUsers.xhtml?faces-redirect=true";
     }
 
     public String goInspectedUser(User user) {

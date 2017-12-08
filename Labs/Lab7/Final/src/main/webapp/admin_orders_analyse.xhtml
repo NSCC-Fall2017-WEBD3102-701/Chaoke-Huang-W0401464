@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
 
 <ui:composition template="layout.xhtml">
@@ -19,10 +20,10 @@
     <ui:define name="content">
         <div class="row">
             Products sold between&nbsp;
-            <h:outputLabel style="color:blue" value="#{chart.before}">
+            <h:outputLabel style="color:blue" value="#{chart.after}">
                 <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
             </h:outputLabel>&nbsp;and&nbsp;
-            <h:outputLabel style="color:blue" value="#{chart.after}">
+            <h:outputLabel style="color:blue" value="#{chart.before}">
                 <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
             </h:outputLabel></div>
         <div class="row">

@@ -55,7 +55,7 @@ public class PurchaseDBUtil {
                 purchase.setProduct(ProductDBUtil.getInstance().getProductById(myRs.getInt("product_id")));
                 //purchase.setOrder(OrderDBUtil.getInstance());
                 purchase.setPrice(myRs.getDouble("price"));
-                purchase.setAmount(myRs.getInt("price"));
+                purchase.setAmount(myRs.getInt("amount"));
                 purchase.setSubtotal(myRs.getDouble("subtotal"));
 
                 purchases.add(purchase);

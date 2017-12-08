@@ -14,11 +14,10 @@
     <ui:define name="secondPart">
         <h5 style="color: #005cbf"><h:outputLabel value="#{flash['feedback']}"/></h5>
         <h:form>
-            <p:outputLabel for="before" value="Before "/>
-            <p:calendar id="before" value="#{chart.before}" pattern="yyyy-MM-dd" effect="fold" required="true" requiredMessage="Please input the date"/>
             <p:outputLabel for="after" value="After "/>
             <p:calendar id="after" value="#{chart.after}" pattern="yyyy-MM-dd" effect="fold" required="true" requiredMessage="Please input the date" />
-
+            <p:outputLabel for="before" value="Before "/>
+            <p:calendar id="before" value="#{chart.before}" pattern="yyyy-MM-dd" effect="fold" required="true" requiredMessage="Please input the date"/>
             <h:commandButton action="#{chart.createPieModel()}" value="Report"/></h:form>
     </ui:define>
 
@@ -38,7 +37,7 @@
                             <h4 class="card-title"><h:commandLink action="#{userService.goInspectedUser(u)}"
                                                                   value="#{u.user_name}"/></h4>
                             <h5 class="card-title">First Name: #{u.first_name}</h5>
-                            <h5 class="card-title">Last Name: #{u.last_name}"</h5>
+                            <h5 class="card-title">Last Name: #{u.last_name}</h5>
                         </div>
                     </div>
                     <div class="col-3"></div>

@@ -16,77 +16,91 @@
 
     <ui:define name="content">
         <h:form method="post" id="registerForm">
+
             <div class="row">
                 <h4 class="offset-4">Registration</h4>
             </div>
-            <br></br>
+
+            <br/>
+
             <div class="row">
                 <h:outputLabel styleClass="offset-3 col-2">First Name</h:outputLabel>
                 <h:inputText styleClass="col-3" value="#{user.first_name}" required="true"
                              id="first_name"
                              label="First Name"
-                             requiredMessage="Please enter the first name which is more than one letter.">
+                             requiredMessage="First name cannot be empty."
+                             validatorMessage="Length of first name must between 2 and 15.">
                     <f:validateLength minimum="2" maximum="15"/>
                 </h:inputText>
-                <h:message for="first_name" styleClass="error"/>
             </div>
-            <br></br>
+
+            <br/>
+
             <div class="row">
                 <h:outputLabel styleClass="offset-3 col-2">Last Name</h:outputLabel>
                 <h:inputText styleClass="col-3" value="#{user.last_name}" required="true"
                              id="last_name"
                              label="Last Name"
-                             requiredMessage="Please enter the last name which is more than one letter.">
+                             requiredMessage="Last name cannot be empty."
+                             validatorMessage="Length of last name must between 2 and 15.">
                     <f:validateLength minimum="2" maximum="15"/>
                 </h:inputText>
-                <h:message for="first_name" styleClass="error"/>
             </div>
-            <br></br>
+
+            <br/>
 
             <div class="row">
                 <h:outputLabel styleClass="offset-3 col-2">User Name</h:outputLabel>
                 <h:inputText styleClass="col-3" value="#{user.user_name}" required="true"
                              id="user_name"
                              label="User Name"
-                             requiredMessage="Please enter the last name which is more than one letter.">
+                             requiredMessage="User name cannot be empty."
+                             validatorMessage="Length of user name must between 2 and 15.">
                     <f:validateLength minimum="2" maximum="15"/>
                 </h:inputText>
-                <h:message for="user_name" styleClass="error"/>
             </div>
-            <br></br>
+
+            <br/>
 
             <div class="row">
                 <h:outputLabel styleClass="offset-3 col-2">Email</h:outputLabel>
                 <h:inputText styleClass="col-3" value="#{user.email}" required="true"
                              id="email"
                              label="Email"
-                             requiredMessage="Please enter a valid email.">
+                             requiredMessage="Please enter a valid email."
+                             validatorMessage="This is not a valid email.">
                     <f:validateRegex
                             pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"/>
                 </h:inputText>
-                <h:message for="email" styleClass="error"/>
             </div>
 
-            <br></br>
+            <br/>
 
             <div class="row">
             </div>
 
             <div class="row">
-
-                    <h:outputLabel styleClass="offset-3 col-2" for="pwd1" value="Password "/>
-                    <p:password styleClass="col-3" id="pwd1" value="#{user.password}" match="pwd2" label="Password 1"
-                                required="true"/>
+                <h:outputLabel styleClass="offset-3 col-2" for="pwd1" value="Password "/>
+                <p:password styleClass="col-3" id="pwd1" value="#{user.password}" match="pwd2" label="Password"
+                            required="true"
+                            requiredMessage="Please enter a valid password."
+                            validatorMessage="Length of password must between 5 and 15.">
+                    <f:validateLength minimum="5" maximum="15"/>
+                </p:password>
 
             </div>
-            <br></br>
+
+            <br/>
+
             <div class="row">
-
-                    <h:outputLabel styleClass="offset-3 col-2" for="pwd2" value="Confirm Password "/>
-                    <p:password styleClass="col-3" id="pwd2" value="#{user.password}" label="Password 2" required="true"/>
-
+                <h:outputLabel styleClass="offset-3 col-2" for="pwd2" value="Confirm Password "/>
+                <p:password styleClass="col-3" id="pwd2" value="#{user.password}" label="Confirm Password"
+                            required="true"
+                            requiredMessage="Please enter a consistent confirm password."
+                            validatorMessage="Password not match."/>
             </div>
-            <br></br>
+
+            <br/>
 
             <div class="row">
                 <div class="offset-4">
@@ -94,11 +108,10 @@
                 </div>
             </div>
             <div class="row">
-                <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+                <p:messages id="messages" showDetail="false" autoUpdate="true" styleClass="col-8 offset-2 "/>
             </div>
             <div class="row">
                 <div class="offset-5">
-
                     <h:commandButton action="#{userService.signup(user)}" value="Register"
                                      styleClass="btn btn-primary"/>
                 </div>
