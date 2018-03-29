@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="IntelliJSP:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="IntelliJSP.war">
-      <element id="artifact" artifact-name="IntelliJSP:war exploded" />
-    </root>
-  </artifact>
-</component>
